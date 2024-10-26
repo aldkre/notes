@@ -1,0 +1,147 @@
+### Normalizacja danych
+to proces organizowania danych w bazie danych w taki sposób, aby zminimalizować redundancję i uniknąć problemów z integralnością danych. Polega na podziale dużych tabel na mniejsze, bardziej zrozumiałe tabele i definiowaniu relacji między nimi.
+
+__Zadania__:
+
+***Redukcja redundancji***: Unikamy powtarzania tych samych danych w różnych miejscach, co zmniejsza rozmiar bazy danych i ułatwia jej zarządzanie.
+
+***Poprawa integralności danych***: Dzięki normalizacji łatwiej jest utrzymać spójność danych. Na przykład, jeśli zmienimy dane w jednym miejscu, nie musimy martwić się o ich aktualizację w innych miejscach.
+
+***Ułatwienie zarządzania danymi***: Dane są bardziej zorganizowane i łatwiejsze do zrozumienia, co ułatwia tworzenie zapytań i raportów.
+
+------------------------------
+
+### Denormalizacja
+to proces odwrotny do normalizacji, polegający na łączeniu tabel w celu poprawy wydajności odczytu danych. W denormalizacji dodaje się redundancję, czyli powtarzające się dane, aby zminimalizować liczbę złożonych zapytań i połączeń między tabelami.
+
+__Zadania__:
+
+***Poprawa wydajności odczytu***: Zmniejsza liczbę połączeń między tabelami, co przyspiesza odczyt danych.
+
+***Uproszczenie zapytań***: Ułatwia tworzenie zapytań, ponieważ dane są przechowywane w jednej tabeli zamiast w wielu.
+
+***Redukcja złożoności***: Zmniejsza złożoność bazy danych, co może być korzystne w przypadku dużych zbiorów danych i aplikacji o wysokiej wydajności.
+
+*Przykład*: Wyobraź sobie tabelę "Zamówienia" i tabelę "Klienci". W normalizacji dane klienta są przechowywane w osobnej tabeli "Klienci", a tabela "Zamówienia" zawiera tylko odniesienie do klienta za pomocą klucza obcego. W denormalizacji dane klienta mogą być dodane bezpośrednio do tabeli "Zamówienia", co eliminuje potrzebę łączenia tabel podczas odczytu danych.
+
+------------------------------
+
+### Podstawowe elementy
+
+**Tabela**: Podstawowa struktura przechowywania danych w relacyjnych bazach danych, składająca się z wierszy i kolumn.
+
+**Wiersz (rekord/krotka)**: Pojedynczy wpis w tabeli, zawierający dane dotyczące jednego obiektu.
+
+**Kolumna (atrybut)**: Pojedyncza cecha lub pole w tabeli, przechowująca określony typ danych.
+
+**Klucz główny (primary key)**: Unikalny identyfikator dla każdego rekordu w tabeli, zapewniający jednoznaczność.
+
+**Klucz obcy (foreign key)**: Kolumna lub zestaw kolumn w tabeli, które odwołują się do klucza głównego w innej tabeli, tworząc relację między tabelami.
+
+**Schemat**: Struktura bazy danych, definiująca tabele, kolumny, relacje i inne elementy.
+
+**Indeks**: Struktura danych, która przyspiesza operacje wyszukiwania w tabeli. Indeksy działają podobnie do spisu treści w książce, umożliwiając szybkie odnalezienie potrzebnych informacji bez przeszukiwania całej tabeli. Indeksy mogą być tworzone na jednej lub kilku kolumnach tabeli, co pozwala na szybkie wyszukiwanie, sortowanie i filtrowanie danych.
+
+Typy indeksów:
+
+***Indeks podstawowy (Primary Index)***: Tworzony na kluczu głównym tabeli. Jest unikalny i zapewnia szybki dostęp do danych.
+
+```sql
+CREATE TABLE Pracownicy (
+    ID INT PRIMARY KEY,
+    Imie VARCHAR(50),
+    Nazwisko VARCHAR(50)
+);
+```
+
+***Indeks wtórny (Secondary Index)***: Tworzony na kolumnach, które nie są kluczem głównym. Może być unikalny lub nieunikalny.
+```sql
+CREATE INDEX idx_nazwisko ON Pracownicy(Nazwisko);
+```
+
+***Indeks złożony (Composite Index)***: Tworzony na więcej niż jednej kolumnie. Umożliwia szybkie wyszukiwanie na podstawie kombinacji wartości w kilku kolumnach.
+```sql
+CREATE INDEX idx_imie_nazwisko ON Pracownicy(Imie, Nazwisko);
+```
+
+***Indeks pełnotekstowy (Full-Text Index)***: Umożliwia szybkie wyszukiwanie tekstu w dużych zbiorach danych. Idealny do wyszukiwania słów lub fraz w dokumentach tekstowych.
+```sql
+CREATE FULLTEXT INDEX idx_tresc ON Artykuly(Tresc);
+```
+
+***Indeks przestrzenny (Spatial Index)***: Używany do przechowywania i wyszukiwania danych geograficznych i przestrzennych. Idealny do aplikacji GIS.
+```sql
+CREATE SPATIAL INDEX idx_lokalizacja ON Miejsca(Lokalizacja);
+```
+
+***Indeks bitmapowy (Bitmap Index)***: Używany w dużych bazach danych do indeksowania kolumn o niskiej kardynalności (mała liczba unikalnych wartości). Efektywny w analizie danych.
+```sql
+CREATE BITMAP INDEX idx_status ON Zamowienia(Status);
+```
+
+***Indeks klastrowany (Clustered Index)***: Określa fizyczny porządek danych w tabeli. Może być tylko jeden na tabelę, ponieważ dane mogą być posortowane tylko w jeden sposób.
+```sql
+CREATE CLUSTERED INDEX idx_id ON Pracownicy(ID);
+```
+
+Indeks nieklastrowany (Non-Clustered Index): Tworzy oddzielną strukturę od danych tabeli, zawierającą wskaźniki do rzeczywistych danych. Może być wiele indeksów nieklastrowanych na tabelę.
+```sql
+CREATE NONCLUSTERED INDEX idx_email ON Pracownicy(Email);
+```
+
+------------------------------
+
+### Transakcja
+to zestaw operacji na bazie danych, które są wykonywane jako jedna jednostka, zapewniając integralność danych. Transakcje zapewniają integralność danych, ponieważ wszystkie operacje w transakcji muszą zostać zakończone pomyślnie, aby zmiany zostały zapisane. Jeśli którakolwiek operacja w transakcji się nie powiedzie, wszystkie zmiany są cofane.
+
+------------------------------
+
+### SQL (Structured Query Language)
+to język zapytań używany do zarządzania i manipulowania danymi w relacyjnych bazach danych. Język SQL powstał w latach 70. XX wieku w IBM. Jego twórcami byli Donald D. Chamberlin i Raymond F. Boyce, którzy pracowali nad projektem System R, opartym na modelu relacyjnym danych zaproponowanym przez Edgara F. Codda
+
+------------------------------
+
+### ACID
+to zasady, które muszą spełniać transakcje w bazach danych: 
+ - ***Atomicity (atomowość)*** - wszystkie operacje w transakcji muszą zostać zakończone pomyślnie, inaczej wszystkie zmiany są cofane
+ - ***Consistency (spójność)*** - transakcja musi przenieść bazę danych z jednego spójnego stanu do innego spójnego stanu
+ - ***Isolation (izolacja)*** - operacje w jednej transakcji muszą być izolowane od operacji w innych transakcjach, aby uniknąć konfliktów
+ - ***Durability (trwałość)*** - po zakończeniu transakcji, zmiany muszą być trwałe i zapisane w bazie danych, nawet w przypadku awarii systemu
+
+------------------------------
+
+### Replikacja
+to proces kopiowania i utrzymywania danych w wielu miejscach w celu zwiększenia dostępności i niezawodności.
+
+------------------------------
+
+### Sharding
+to technika dzielenia dużych baz danych na mniejsze, bardziej zarządzalne części, zwane shardami, w celu poprawy wydajności.
+
+------------------------------
+
+### Algebra relacji
+to zbiór operatorów, które służą do manipulacji relacjami. Rezultatem działania, jak również argumentami tych operatorów są relacje. Operatory te można podzielić na dwie grupy: operacje na zbiorach oraz operatory zaprojektowane dla modelu relacyjnego.
+
+Operacje na zbiorach:
+
+- Suma dwóch relacji tego samego typu
+- Różnica dwóch relacji tego samego typu
+- Iloczyn kartezjański dwóch relacji
+
+Operacje dla konkretnego modelu:
+
+Selekcja – rodzina operatorów parametryzowanych warunkiem logicznym. Jako argument przyjmuje relację, na wyjściu zwraca relację zawierającą tylko te krotki, dla których warunek logiczny był prawdziwy. 
+
+**σ {pensja>300} (r)**
+
+Projekcja (rzutowanie) – rodzina operatorów parametryzowanych ciągiem indeksów bądź ciągiem nazw atrybutów. Krotki wynikowej relacji powstają poprzez rzutowanie oryginalnych krotek na podany ciąg.  
+
+**π {imie,nazwisko} (r)**
+
+Przemianowanie – rodzina operatorów parametryzowanych parą atrybutów (A, B), gdzie oba atrybuty mają tę samą dziedzinę. Operator ten zamienia nazwę atrybutu A na B w wynikowej relacji. Przykładowym operatorem może być 
+
+**δ {zarobki→pensja} (r)**
+
+Złączenie – może być zdefiniowane przy użyciu złożenia operatorów iloczynu kartezjańskiego, selekcji i projekcji. Ten operator przyjmuje jako argumenty dwie relacje r(X) i s(Y). W wyniku powstaje relacja v(X∪Y). Dla każdej pary krotek (po jednej z każdej wejściowej relacji), które mają te same wartości dla wspólnych atrybutów, powstaje krotka nowej relacji poprzez dołączenie do pierwszej krotki wartości drugiej krotki. Notacja przykładowa:
+dane(<Pesel, Imie, Nazwisko>)  ⋈ oceny(<Pesel, Przedmiot, Ocena>) = dane_oceny(<Pesel, Imie, Nazwisko, Przedmiot, Ocena>)

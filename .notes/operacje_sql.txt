@@ -1,0 +1,440 @@
+*Istnieją różnice w funkcjach stosowanych w różnych systemach zarządzania bazami danych.*
+
+
+## Operacje DDL (Data Definition Language): 
+
+Służą do definiowania i zarządzania strukturą bazy danych.
+
+**CREATE**: Tworzy nowe tabele, indeksy, widoki itp.
+```sql
+CREATE TABLE Pracownicy (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    DataZatrudnienia DATE,
+    Wynagrodzenie DECIMAL(10, 2) CHECK (Wynagrodzenie > 0),
+    DzialID INT,
+    FOREIGN KEY (DzialID) REFERENCES Dzialy(ID)
+);
+```
+
+**ALTER**: Modyfikuje istniejące tabele, dodając lub usuwając kolumny.
+```sql
+ALTER TABLE StaraNazwa RENAME TO NowaNazwa;
+```
+
+```sql
+ALTER TABLE Pracownicy ADD DataUrodzenia DATE;
+```
+
+```sql
+ALTER TABLE Pracownicy DROP COLUMN DataUrodzenia;
+```
+
+```sql
+ALTER TABLE Pracownicy RENAME COLUMN Imie TO PierwszeImie;
+```
+
+```sql
+ALTER TABLE Pracownicy
+ADD CONSTRAINT unikalne_Imię UNIQUE (Imię);
+```
+
+**DROP**: Usuwa tabele, indeksy, widoki itp.
+```sql
+DROP TABLE Pracownicy;
+```
+
+**CREATE VIEW**:
+```sql
+CREATE VIEW WszyscyPracownicy AS
+SELECT Imię, Nazwisko, Stanowisko
+FROM Pracownicy;
+```
+
+```sql
+CREATE MATERIALIZED VIEW PracownicyMaterializowany AS
+SELECT Imie, Nazwisko, Email
+FROM Pracownicy;
+```
+
+**CREATE INDEX**:
+```sql
+CREATE INDEX idx_Nazwisko ON Pracownicy (Nazwisko);
+```
+
+------------------------------
+
+## Operacje DML (Data Manipulation Language): 
+
+Służą do manipulowania danymi w bazie danych.
+
+**SELECT**: Pobiera dane z tabel.
+```sql
+SELECT Imie, Nazwisko, Email
+FROM Pracownicy
+WHERE 
+GROUP
+HAVING
+ORDER BY;
+```
+
+**INSERT**: Dodaje nowe rekordy do tabel.
+```sql
+INSERT INTO Pracownicy (Imie, Nazwisko, Email) VALUES ('Jan', 'Kowalski', 'jan.kowalski@example.com');
+```
+
+**UPDATE**: Modyfikuje istniejące rekordy w tabelach.
+```sql
+UPDATE Pracownicy SET Email = 'jan.nowak@example.com' WHERE ID = 1;
+```
+
+**DELETE**: Usuwa rekordy z tabel.
+```sql
+DELETE FROM Pracownicy WHERE ID = 1;
+```
+
+------------------------------
+
+## Operacje DCL (Data Control Language): 
+
+Służą do zarządzania uprawnieniami użytkowników.
+
+GRANT: Przyznaje uprawnienia użytkownikom.
+```sql
+GRANT SELECT, INSERT ON Pracownicy TO Uzytkownik;
+```
+
+REVOKE: Odbiera uprawnienia użytkownikom.
+```sql
+REVOKE SELECT, INSERT ON Pracownicy FROM Uzytkownik;
+```
+
+------------------------------
+
+## Operacje TCL (Transaction Control Language): 
+
+Służą do zarządzania transakcjami w bazie danych.
+
+COMMIT: Zatwierdza transakcję, zapisując wszystkie zmiany.
+```sql
+COMMIT;
+```
+
+ROLLBACK: Anuluje transakcję, cofając wszystkie zmiany.
+```sql
+ROLLBACK;
+```
+
+SAVEPOINT: Tworzy punkt zapisu w transakcji, do którego można wrócić.
+```sql
+SAVEPOINT PunktZapisu;
+```
+
+------------------------------
+
+## Operacje DQL (Data Query Language): 
+
+Służą do zapytań o dane.
+
+SELECT: Pobiera dane z tabel (często zaliczany do DML, ale czasem wyróżniany jako osobna kategoria).
+
+------------------------------
+------------------------------
+
+### Różnice między DELETE, TRUNCATE, DROP
+
+*DELETE:*
+- Usuwa wiersze z tabeli na podstawie określonego warunku.
+- Można używać z klauzulą WHERE do usunięcia tylko wybranych wierszy.
+- Zmiany można cofnąć za pomocą ROLLBACK, jeśli są wykonywane w ramach transakcji.
+```sql
+DELETE FROM Pracownicy WHERE ID = 1;
+```
+
+*TRUNCATE:*
+- Usuwa wszystkie wiersze z tabeli, ale zachowuje strukturę tabeli.
+- Jest szybsze niż DELETE, ponieważ nie zapisuje indywidualnych usunięć w dzienniku transakcji.
+- Nie można cofnąć za pomocą ROLLBACK.
+```sql
+TRUNCATE TABLE Pracownicy;
+```
+
+*DROP:*
+- Usuwa całą tabelę z bazy danych, włącznie z jej strukturą i danymi.
+- Nie można cofnąć za pomocą ROLLBACK.
+```sql
+DROP TABLE Pracownicy;
+```
+
+------------------------------
+------------------------------
+
+Funkcje skalarne w SQL to funkcje, które przyjmują jedną wartość wejściową i zwracają jedną wartość wyjściową. Np. ROUND() - zwraca liczbę, ABS() - zwraca liczbę, UPPER() - zwraca ciąg łańcuchowy
+
+------------------------------
+------------------------------
+
+## inne rodzaje operacji:
+
+### FUNKCJE AGREGUJĄCE
+
+**COUNT** Zlicza liczbę wierszy.
+```sql
+SELECT COUNT(*) FROM Pracownicy;
+```
+
+**SUM** Sumuje wartości w kolumnie.
+```sql
+SELECT SUM(Wynagrodzenie) FROM Pracownicy;
+```
+
+**AVG** Oblicza średnią wartość w kolumnie.
+```sql
+SELECT AVG(Wynagrodzenie) FROM Pracownicy;
+```
+
+**MIN**  Znajduje najmniejszą wartość w kolumnie.
+```sql
+SELECT MIN(Wynagrodzenie) FROM Pracownicy;
+```
+
+**MAX** Znajduje największą wartość w kolumnie.
+```sql
+SELECT MAX(Wynagrodzenie) FROM Pracownicy;
+```
+
+------------------------------
+
+### FUNKCJE TEKSTOWE
+
+**CONCAT** Łączy dwie lub więcej wartości tekstowych.
+```sql
+SELECT CONCAT(Imie, ' ', Nazwisko) AS PelneImie FROM Pracownicy;
+```
+
+**UPPER** Zamienia tekst na wielkie litery.
+```sql
+SELECT UPPER(Imie) FROM Pracownicy;
+```
+
+**LOWER** Zamienia tekst na małe litery.
+```sql
+SELECT LOWER(Imie) FROM Pracownicy;
+```
+
+**SUBSTRING** Wyciąga podciąg z tekstu.
+```sql
+SELECT SUBSTRING(Imie, 1, 3) FROM Pracownicy;
+```
+
+------------------------------
+
+### FUNKCJE DATY I CZASU
+
+**NOW** Zwraca bieżącą datę i czas.
+```sql
+SELECT NOW();
+```
+
+**CURDATE** Zwraca bieżącą datę.
+```sql
+SELECT CURDATE();
+```
+
+**DATEDIFF** Oblicza różnicę między dwiema datami.
+```sql
+SELECT DATEDIFF('2024-12-31', '2024-01-01');
+```
+
+**DATE_ADD** Dodaje określoną ilość czasu do daty.
+```sql
+SELECT DATE_ADD(NOW(), INTERVAL 7 DAY);
+```
+
+------------------------------
+
+### FUNKCJE MATEMATYCZNE
+
+**ROUND** Zaokrągla liczbę do określonej liczby miejsc po przecinku.
+```sql
+SELECT ROUND(Wynagrodzenie, 2) FROM Pracownicy;
+```
+
+**ABS** Zwraca wartość bezwzględną liczby.
+```sql
+SELECT ABS(-10);
+```
+
+**CEIL** Zaokrągla liczbę w górę do najbliższej całkowitej.
+```sql
+SELECT CEIL(4.2);
+```
+
+**FLOOR** Zaokrągla liczbę w dół do najbliższej całkowitej.
+```sql
+SELECT FLOOR(4.8);
+```
+
+------------------------------
+
+### FUNKCJE OKIENKOWE
+
+**ROW_NUMBER**
+```sql
+SELECT Imie, Nazwisko, ROW_NUMBER() OVER (ORDER BY Imie) AS Rownum FROM Pracownicy;
+```
+
+**RANK**
+```sql
+SELECT Imie, Nazwisko, RANK() OVER (ORDER BY Wynagrodzenie DESC) AS Ranga FROM Pracownicy;
+```
+
+**DENSE_RANK**
+```sql
+SELECT Imie, Nazwisko, DENSE_RANK() OVER (ORDER BY Wynagrodzenie DESC) AS Ranga FROM Pracownicy;
+```
+
+**NTILE**
+```sql
+SELECT Imie, Nazwisko, NTILE(4) OVER (ORDER BY Wynagrodzenie DESC) AS Kwartyl FROM Pracownicy;
+```
+
+------------------------------
+
+### FUNKCJE GRUPUJĄCE
+
+**GROUP BY**
+```sql
+SELECT DzialID, COUNT(*) FROM Pracownicy GROUP BY DzialID;
+```
+
+------------------------------
+
+### FUNKCJE ANALITYCZNE
+
+**LEAD**
+```sql
+SELECT Imie, Nazwisko, LEAD(Wynagrodzenie, 1) OVER (ORDER BY Wynagrodzenie) AS NastepneWynagrodzenie FROM Pracownicy;
+```
+
+**LAG**
+```sql
+SELECT Imie, Nazwisko, LAG(Wynagrodzenie, 1) OVER (ORDER BY Wynagrodzenie) AS PoprzednieWynagrodzenie FROM Pracownicy;
+```
+
+------------------------------
+
+### POZOSTAŁE
+
+**CASE**
+```sql
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+    WHEN Quantity = 30 THEN 'The quantity is 30'
+    ELSE 'The quantity is under 30'
+END AS QuantityText
+FROM OrderDetails;
+```
+
+**ANY**
+```sql
+SELECT ProductName
+FROM Products
+WHERE ProductID = ANY
+  (SELECT ProductID
+  FROM OrderDetails
+  WHERE Quantity = 10);
+```
+
+**EXISTS**
+```sql
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+```
+
+**UNION**
+```sql
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+```
+
+**SELF JOIN**
+```sql
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+```
+
+**FULL OUTER JOIN**
+```sql
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column_name = table2.column_name
+WHERE condition;
+```
+
+**LEFT JOIN**
+```sql
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name;
+```
+
+**INNER JOIN**
+```sql
+SELECT ProductID, ProductName, CategoryName
+FROM Products
+INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID;
+```
+
+**BETWEEN**
+```sql
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+```
+
+**COALESCE**
+```sql
+SELECT Imie, COALESCE(Email, 'brak@example.com') AS Email
+FROM Pracownicy;
+```
+
+**REPLACE**
+```sql
+SELECT Imie, REPLACE(Email, 'example.com', 'company.com') AS NowyEmail
+FROM Pracownicy;
+```
+
+**TRANSLATE**
+```sql
+SELECT TRANSLATE('12345', '12345', 'ABCDE') AS Zamienione;
+```
+W tym przykładzie każda cyfra od 1 do 5 zostanie zamieniona na odpowiadającą jej literę od A do E, więc wynik będzie 'ABCDE'.
+
+
+```sql
+SELECT TRANSLATE('Jan-Kowalski', '-_', '  ') AS CzysteNazwisko;
+```
+W tym przykładzie znaki '-' i '_' zostaną zamienione na spacje, więc wynik będzie 'Jan Kowalski'.
+
+
+```sql
+SELECT TRANSLATE('ABCDE', 'ABCDE', '12345') AS Zamienione;
+```
+W tym przykładzie każda litera od A do E zostanie zamieniona na odpowiadającą jej cyfrę od 1 do 5, więc wynik będzie '12345'.
+
+
+```sql
+SELECT TRANSLATE('(123) 456-7890', '()- ', '') AS CzystyNumer;
+```
+W tym przykładzie znaki '(', ')', '-' i spacje zostaną usunięte, więc wynik będzie '1234567890'.

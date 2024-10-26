@@ -1,0 +1,98 @@
+### operatory arytmetyczne
+
+\+ 	(dodawanie)
+
+\- 	(odejmowanie) 
+
+\* 	(mnożenie)
+
+\/ 	(dzielenie) 
+
+\% 	(modulo)
+
+
+### operatory porównania
+
+=   	(równe)
+
+!=  	(różne)
+
+<>  	(różne)
+	
+!<  	(wartość po lewej stronie operatora nie mniejsza od wartości po prawej stronie)
+
+!>  	(wartość po lewej stronie nie większa od wartości po prawej stronie)
+
+
+### operatory logiczne
+
+**ALL**	
+Operator służy do porównania wartości ze wszystkimi wartościami w innym zestawie wartości. Warunek jest prawdziwy jeżeli wszystkie wartości pod-zapytania spełniają warunek.
+
+**ANY**	
+Operator służy do porównania wartości z jakąkolwiek wartością w innym zestawie wartości. Warunek jest prawdziwy jeżeli którakolwiek wartość pod-zapytania spełnia warunek.
+
+**AND**	
+Operator pozwala na łączenie wielu warunków w klauzuli WHERE.
+
+**BETWEEN**	
+Operator pozwala na wyszukiwanie wartości, które mieszczą się w zdefiniowanym zbiorze wartości. Definicja zbioru opiera się na wartości minimalnej oraz maksymalnej.
+
+**EXISTS**	
+Operator pozwala na sprawdzenie czy dany rekord istnieje w pod-zapytaniu.
+
+**IN**	
+Operator pozwala na określenie wielu wartości w klauzuli WHERE.
+
+**LIKE**	
+Operator pozwala na porównanie wartości z wartościami podobnymi przy zastosowaniu operatorów wieloznacznych.
+
+**NOT**	
+Operator negujący służy do odwrócenia znaczenia operatora logiczego z którym jest używany. Prostymi przykładami użycia są: NOT IN, NOT EXISTS etc.
+
+**OR**	
+Operator pozwala na łączenie wielu warunków w klauzuli WHERE.
+
+**IS NULL**	
+Operator pozwala na dokonanie porównania z 'wartością' NULL.
+
+**UNIQUE**
+Operator pozwala na przeszukanie każdej tabeli pod kątem niepowtarzalności rekordów.
+
+----------------------------
+
+## WILDCARD
+
+\%	reprezentuje zero, jeden lub więcej znaków
+
+\_	reprezentuje jeden znak
+
+\[ ]	reprezentuje znaki umieszczone w nawiasie
+
+\^	reprezentuje każdy inny znak niż te umieszczone w nawiasie
+
+\-	reprezentuje znaki ze wskazanego zakresu
+
+
+
+```sql
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%mer%';
+```
+
+```sql
+SELECT * FROM Customers
+WHERE City LIKE '_ondon';
+```
+
+```sql
+SELECT * FROM Customers
+WHERE CustomerName LIKE '[bsp]%';
+```
+
+```sql
+SELECT * FROM Customers
+WHERE CustomerName LIKE '[a-f]%';
+```
+
+

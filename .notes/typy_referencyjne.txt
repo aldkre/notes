@@ -40,8 +40,23 @@ public class Osoba
 
 Osoba osoba1 = new Osoba("Jan", 30);
 ```
-
---------------------------------
+Zgodnie z formatem zdefiniowanym przez UML każda klasa reprezentowana jest przez prostokąt, którego górna część przeznaczona jest na nazwę, środkowa na pola danych, dolna zaś na funkcje składowe.
+ ________________
+| nazwa obiektu  |
+| Obiekt	 |
+|________________|
+| pola	danych   |
+| int a;	 |
+|________________|
+| funkcje	 |
+| wykonaj()	 |
+|________________|
+ 
+Specyfikatory dostępu określają kto jest upoważniony do używania po nich definicji: public / private / protected
+- public - definicje są dostępne dla każdego
+- private - dostęp posiada twórca danej klasy wewnątrz funkcji składowych
+- pritected - klasy dziedziczące z klasy mają dostęp do elementów
+Domyślny tryb dostępu (pakietowy) - jeśli nie podamy żadnego specyfikatora: do składowych pakietowych mogą się odwoływać inne klasy z pakietu, natomiast poza pakietem widziane są jako prywatne.
 
 4. **Interface**: Interfejsy definiują metody, które muszą zostać zaimplementowane przez klasy.
 

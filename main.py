@@ -30,24 +30,26 @@ elif wybor == "JAVA":
         typ_prymitywny, typ_referencyjny = st.columns(2)
         with typ_prymitywny:
             st.subheader("Typy prymitywne")
-            st.caption(return_text('.notes/typy_prymitywne.txt'))
+            st.caption(return_text('.notes/java/typy_prymitywne.txt'))
 
         with typ_referencyjny:
             st.subheader("Typy referencyjne")
-            st.caption(return_text(".notes/typy_referencyjne.txt"))
+            st.caption(return_text(".notes/java/typy_referencyjne.txt"))
 
         st.divider()
 
-        st.caption(return_text(".notes/typy_danych_ogolnie.txt"))
+        st.caption(return_text(".notes/java/typy_danych_ogolnie.txt"))
 
     with pojecia:
-        st.caption(return_text(".notes/pojecia.txt"))
+        st.caption(return_text(".notes/java/pojecia.txt"))
 
     with metody:
-        st.caption(return_text(".notes/metody.txt"))
+        st.caption(return_text(".notes/java/metody.txt"))
 
 elif wybor == "BAZY DANYCH":
-    pass
+    typy_baz, inne = st.tabs(["Typy baz danych", "Inne"])
+    with typy_baz:
+        st.caption(return_text(".notes/sql/typy_baz_danych.txt"))
 
 elif wybor == "ZPI":
     pass

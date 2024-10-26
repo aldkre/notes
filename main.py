@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 st.set_page_config(
     page_title="Java notes",
@@ -13,6 +12,11 @@ def return_text(file):
         caption_text = file.read()
         return caption_text
 
+# SIDEBAR
+with st.sidebar:
+    pass
+
+# MAIN JAVA SITE
 st.header("JAVA")
 
 typy_danych, pojecia, metody = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody"])

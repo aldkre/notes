@@ -1,36 +1,36 @@
-1. **JVM (Java Virtual Machine)**:
+### JVM (Java Virtual Machine)
    - JVM to wirtualna maszyna, która tłumaczy kod bajtowy Javy na kod maszynowy w czasie rzeczywistym, umożliwiając uruchamianie aplikacji Java na różnych platformach.
 
 --------------------------------
 
-2. **JDK, JRE, i JVM**:
-   - **JRE (Java Runtime Environment)**: Środowisko uruchomieniowe dla aplikacji Java, które zawiera JVM oraz biblioteki i inne pliki potrzebne do uruchomienia programów.
-   - **JDK (Java Development Kit)**: Zestaw narzędzi dla programistów, który zawiera JRE, JVM oraz narzędzia do tworzenia aplikacji Java, takie jak kompilator (javac).
+### JDK, JRE, i JVM**
+   - ***JRE (Java Runtime Environment)***: Środowisko uruchomieniowe dla aplikacji Java, które zawiera JVM oraz biblioteki i inne pliki potrzebne do uruchomienia programów.
+   - ***JDK (Java Development Kit)***: Zestaw narzędzi dla programistów, który zawiera JRE, JVM oraz narzędzia do tworzenia aplikacji Java, takie jak kompilator (javac).
    ***(zawiera funkcje preparacji, kompilacji, linkowania)***
-   - **JVM**: Wirtualna maszyna Java, która wykonuje kod bajtowy i umożliwia uruchamianie aplikacji Java na różnych platformach.
+   - ***JVM***: Wirtualna maszyna Java, która wykonuje kod bajtowy i umożliwia uruchamianie aplikacji Java na różnych platformach.
    Język programowania kompilowany na język pośredni bajtowy, który w locie kompilowany jest na język maszynowy przez JVM
 
 
-    IDE - integrated development environment (Eclipse, NetBeans, IntelliJ IDEA)
+    *IDE* - integrated development environment (Eclipse, NetBeans, IntelliJ IDEA)
 
 --------------------------------
 
-3. **Garbage Collection**:
+### Garbage Collection
    - Garbage Collection to proces automatycznego zarządzania pamięcią, który usuwa obiekty, do których nie ma już referencji, aby zwolnić pamięć i zapobiec wyciekom pamięci.
 
 --------------------------------
 
-4. **Polimorfizm**:
+### Polimorfizm
    - Polimorfizm to zdolność obiektów do przyjmowania różnych form. W Javie pozwala to na wywoływanie metod na obiektach różnych klas, które dziedziczą z tej samej klasy bazowej, umożliwiając elastyczność i rozszerzalność kodu.
 
 --------------------------------
 
-5. **Dziedziczenie (Inheritance)**:
+### Dziedziczenie (Inheritance)
    - Dziedziczenie to mechanizm, który pozwala jednej klasie (klasa potomna) na przejęcie właściwości i metod innej klasy (klasa bazowa). To ułatwia ponowne użycie kodu, jego rozszerzanie i modyfikowanie.
 
 --------------------------------
 
-6. **Exceptions handling**:
+### Exceptions handling
     - Exception handling to mechanizm zarządzania błędami, który umożliwia programistom obsługę wyjątków (błędów) w kontrolowany sposób.
   ```java
   try
@@ -46,7 +46,7 @@
 
 --------------------------------
 
-7. **Enkapsulacja**:
+### Enkapsulacja
     - Enkapsulacja to zasada OOP (Object-Oriented Programming), która polega na ukrywaniu szczegółów implementacyjnych klasy i udostępnianiu tylko publicznych metod dostępowych.
   ```java
   public class Osoba

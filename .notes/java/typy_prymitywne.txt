@@ -1,9 +1,9 @@
 Wartości prymitywne w Javie to podstawowe typy danych, które nie są obiektami. Java obsługuje osiem typów prymitywnych, a każdy z nich ma swoje specyficzne właściwości. Oto one:
 
-1. **byte**:
-- **Rozmiar**: 8 bitów
-- **Zakres**: -128 do 127
-- **Domyślna wartość**: 0
+### byte
+- ***Rozmiar***: 8 bitów
+- ***Zakres***: -128 do 127
+- ***Domyślna wartość***: 0
 
 ```java
 byte liczba = 100;
@@ -11,10 +11,10 @@ byte liczba = 100;
 
 --------------------------------
 
-2. **short**:
-- **Rozmiar**: 16 bitów
-- **Zakres**: -32,768 do 32,767
-- **Domyślna wartość**: 0
+### short
+- ***Rozmiar***: 16 bitów
+- ***Zakres***: -32,768 do 32,767
+- ***Domyślna wartość***: 0
 
 ```java
 short liczba = 32000;
@@ -22,10 +22,10 @@ short liczba = 32000;
 
 --------------------------------
 
-3. **int**:
-- **Rozmiar**: 32 bity
-- **Zakres**: -2^31 do 2^31-1 / -2,147,483,648 do 2,147,483,647
-- **Domyślna wartość**: 0
+### int
+- ***Rozmiar***: 32 bity
+- ***Zakres***: -2^31 do 2^31-1 / -2,147,483,648 do 2,147,483,647
+- ***Domyślna wartość***: 0
 
 ```java
 int liczba = 2000000000;
@@ -33,10 +33,10 @@ int liczba = 2000000000;
 
 --------------------------------
 
-4. **long**:
-- **Rozmiar**: 64 bity
-- **Zakres**: -2^63 do 2^63-1 / -9,223,372,036,854,775,808 do 9,223,372,036,854,775,807
-- **Domyślna wartość**: 0L
+### long
+- ***Rozmiar***: 64 bity
+- ***Zakres***: -2^63 do 2^63-1 / -9,223,372,036,854,775,808 do 9,223,372,036,854,775,807
+- ***Domyślna wartość***: 0L
 
 ```java
 long liczba = 9000000000L;
@@ -44,10 +44,10 @@ long liczba = 9000000000L;
 
 --------------------------------
 
-5. **float**:
-- **Rozmiar**: 32 bity
-- **Precyzja**: 6-7 cyfr znaczących
-- **Domyślna wartość**: 0.0f
+### float
+- ***Rozmiar***: 32 bity
+- ***Precyzja***: 6-7 cyfr znaczących
+- ***Domyślna wartość***: 0.0f
 
 ```java
 float liczba = 3.14f;
@@ -55,10 +55,10 @@ float liczba = 3.14f;
 
 --------------------------------
 
-6. **double**:
-- **Rozmiar**: 64 bity
-- **Precyzja**: 15-16 cyfr znaczących
-- **Domyślna wartość**: 0.0d
+### double
+- ***Rozmiar***: 64 bity
+- ***Precyzja***: 15-16 cyfr znaczących
+- ***Domyślna wartość***: 0.0d
 
 ```java
 double pi = 3.14;
@@ -66,10 +66,10 @@ double pi = 3.14;
 
 --------------------------------
 
-7. **char**:
-- **Rozmiar**: 16 bitów
-- **Zakres**: 0 do 65,535 (reprezentacja Unicode znaków)
-- **Domyślna wartość**: '\\u0000' (null char)
+### char
+- ***Rozmiar***: 16 bitów
+- ***Zakres***: 0 do 65,535 (reprezentacja Unicode znaków)
+- ***Domyślna wartość***: '\\u0000' (null char)
 
 ```java
 char litera = 'A';
@@ -77,10 +77,10 @@ char litera = 'A';
 
 --------------------------------
 
-8. **boolean**:
-- **Rozmiar**: 1 bit
-- **Wartości**: true lub false
-- **Domyślna wartość**: false
+### boolean
+- ***Rozmiar***: 1 bit
+- ***Wartości***: true lub false
+- ***Domyślna wartość***: false
 
 ```java
 boolean prawda = true;

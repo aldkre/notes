@@ -1,4 +1,5 @@
-- **Metoda statyczna** (oznaczona słowem kluczowym `static`) należy do klasy, a nie do instancji tej klasy. Oznacza to, że można ją wywołać bez tworzenia obiektu klasy.
+### Metoda statyczna 
+(oznaczona słowem kluczowym `static`) należy do klasy, a nie do instancji tej klasy. Oznacza to, że można ją wywołać bez tworzenia obiektu klasy.
   ```java
   public class MojaKlasa
   {
@@ -11,7 +12,8 @@
   // Wywołanie metody statycznej
   MojaKlasa.metodaStatyczna();
   ```
-- **Metoda instancji** działa na obiektach klasy i może operować na polach i metodach tej konkretnej instancji.
+### Metoda instancji
+działa na obiektach klasy i może operować na polach i metodach tej konkretnej instancji.
   ```java
   public class MojaKlasa
   {

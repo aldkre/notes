@@ -4,10 +4,10 @@ natomiast zmienne typu referencyjnego przechowują adresy obiektów w pamięci.
 
 Przechowywanie danych:
 - ***rejestry***: najszybciej dostępna pamięć, znajduje się w innym miejscu niż pozostałe - wewnątrz procesora; liczba rejestrów jest znacznie ograniczona
-- ***stos***: jest umieszczony w pamięci RAM, jest bezpośrednio obsługiwany przez procesor tzw. wskaźnik stosu, który jest przesuwany w dół (zajęcie obszaru) lub w górę (zwolnienie obszaru), szybki i efektywny sposób przydzielania pamięci; potrzeba określenia dokładnego rozmiaru oraz czasu życia danych przechowywanych na stosie [dane prymitywne]
+- ***stos***: jest umieszczony w pamięci RAM; jest bezpośrednio obsługiwany przez procesor tzw. wskaźnik stosu, który jest przesuwany w dół (zajęcie obszaru) lub w górę (zwolnienie obszaru); szybki i efektywny sposób przydzielania pamięci; potrzeba określenia dokładnego rozmiaru oraz czasu życia danych przechowywanych na stosie [dane prymitywne]
 - ***sterta***: jest to fragment pamięci ogólnego zastosowania w obrębie pamięci RAM, wolniejszy sposób
-- ***obszar stałych***: są często umieszczane bezpośrednio w kodzie programu, czasem są wydzielane z kodu i umieszczone w pamięci tylko do odczytu ROM
-- ***obszar spoza RAM***: obiekty są przekształcane w strumień bajtów (strumieniowanie obiektów) by mogły być przesłane na inną maszynę bądź umieszczane na dysku (obiekty trwałe) -oba sposoby zmieniają obiekty w coś co istnieje na innym medium
+- ***obszar stałych***: są często umieszczane bezpośrednio w kodzie programu; czasem są wydzielane z kodu i umieszczone w pamięci tylko do odczytu ROM
+- ***obszar spoza RAM***: obiekty są przekształcane w strumień bajtów (strumieniowanie obiektów) by mogły być przesłane na inną maszynę bądź umieszczane na dysku (obiekty trwałe) - oba sposoby zmieniają obiekty w coś co istnieje na innym medium
 
 W C++ obiekty da się umieszczać na stosie - potrzeba określenia rozmiaru i czasu życia
 

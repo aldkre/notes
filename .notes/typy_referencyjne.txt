@@ -1,7 +1,7 @@
 To typy złożone, zdefiniowane w bibliotekach standardowych języka Java
 oraz tworzone przez programistów poprzez pisanie klas. Do typów złożonych zaliczają się także tablice.
 
-1. **String** Używany do reprezentacji ciągów znaków:
+1. **String** - używany do reprezentacji ciągów znaków:
 - **Zakres**: Nieograniczony (ilość znaków zależy od dostępnej pamięci)
 - **Domyślna wartość**: null
 
@@ -11,7 +11,7 @@ jest to w rzeczywistości obiekt klasy, co oznacza, że ma metody i może być m
 
 --------------------------------
 
-2. **Array** Tablica, która może przechowywać wiele elementów tego samego typu:
+2. **Array** - tablica, która może przechowywać wiele elementów tego samego typu:
 - **Zakres**: Zależny od typu elementu tablicy
 - **Domyślna wartość**: null
 
@@ -21,7 +21,7 @@ int[] liczby = {1, 2, 3, 4, 5};
 
 --------------------------------
 
-3. **Class (Obiekt)** Obiekty klas są instancjami klas, które mogą mieć pola (zmienne) i metody:
+3. **Class (Obiekt)** - obiekty klas są instancjami klas, które mogą mieć pola (zmienne) i metody:
 - **Zakres**: Zależny od klasy
 - **Domyślna wartość**: null
 
@@ -41,24 +41,14 @@ public class Osoba
 Osoba osoba1 = new Osoba("Jan", 30);
 ```
 Zgodnie z formatem zdefiniowanym przez UML każda klasa reprezentowana jest przez prostokąt, którego górna część przeznaczona jest na nazwę, środkowa na pola danych, dolna zaś na funkcje składowe.
- ________________
-| nazwa obiektu  |
-| Obiekt	 |
-|________________|
-| pola	danych   |
-| int a;	 |
-|________________|
-| funkcje	 |
-| wykonaj()	 |
-|________________|
  
-Specyfikatory dostępu określają kto jest upoważniony do używania po nich definicji: public / private / protected
+Specyfikatory dostępu określają kto jest upoważniony do używania: public / private / protected
 - public - definicje są dostępne dla każdego
 - private - dostęp posiada twórca danej klasy wewnątrz funkcji składowych
-- pritected - klasy dziedziczące z klasy mają dostęp do elementów
-Domyślny tryb dostępu (pakietowy) - jeśli nie podamy żadnego specyfikatora: do składowych pakietowych mogą się odwoływać inne klasy z pakietu, natomiast poza pakietem widziane są jako prywatne.
+- protected - klasy dziedziczące z klasy mają dostęp do elementów
+Domyślny tryb dostępu (pakietowy) jest uruchamiany jeśli nie podamy żadnego specyfikatora: do składowych pakietowych mogą się odwoływać inne klasy z pakietu, natomiast poza pakietem widziane są jako prywatne.
 
-4. **Interface**: Interfejsy definiują metody, które muszą zostać zaimplementowane przez klasy.
+4. **Interface** - interfejsy definiują metody, które muszą zostać zaimplementowane przez klasy.
 
 - Interfejs definiuje zestaw metod, które klasa musi zaimplementować, ale nie zawiera implementacji tych metod.
 ```java
@@ -104,7 +94,7 @@ interface Zwierze
 
 --------------------------------
 
-5. **Collections (Kolekcje)**: Java Collections Framework zawiera struktury danych takie jak List, Set, Map.
+5. **Collections (Kolekcje)** - Java Collections Framework zawiera struktury danych takie jak List, Set, Map.
 ```java
 List<String> lista = new ArrayList<>();
 Set<Integer> zbior = new HashSet<>();
@@ -113,7 +103,7 @@ Map<String, Integer> mapa = new HashMap<>();
 
 --------------------------------
 
-6. **Enums**: Enumy to specjalne typy klas używane do reprezentowania grupy stałych.
+6. **Enums** - enumy to specjalne typy klas używane do reprezentowania grupy stałych.
 ```java
 public enum Dzien
     {

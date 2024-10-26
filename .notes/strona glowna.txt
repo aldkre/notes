@@ -1,0 +1,11 @@
+Witamy na głównej stronie!
+
+
+Na niniejszej stronie odnajdziesz notatki związane z tematyką:
+
+🔎 JAVA
+
+🔎 BAZY DANYCH
+
+🔎 ZPI
+

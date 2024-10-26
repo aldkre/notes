@@ -5,6 +5,10 @@ Wartości prymitywne w Javie to podstawowe typy danych, które nie są obiektami
 - **Zakres**: -128 do 127
 - **Domyślna wartość**: 0
 
+```java
+byte liczba = 100;
+```
+
 --------------------------------
 
 2. **short**:
@@ -12,23 +16,31 @@ Wartości prymitywne w Javie to podstawowe typy danych, które nie są obiektami
 - **Zakres**: -32,768 do 32,767
 - **Domyślna wartość**: 0
 
+```java
+short liczba = 32000;
+```
+
 --------------------------------
 
 3. **int**:
 - **Rozmiar**: 32 bity
-- **Zakres**: -2^31 do 2^31-1
+- **Zakres**: -2^31 do 2^31-1 / -2,147,483,648 do 2,147,483,647
 - **Domyślna wartość**: 0
 
 ```java
-int liczba = 42;
+int liczba = 2000000000;
 ```
 
 --------------------------------
 
 4. **long**:
 - **Rozmiar**: 64 bity
-- **Zakres**: -2^63 do 2^63-1
+- **Zakres**: -2^63 do 2^63-1 / -9,223,372,036,854,775,808 do 9,223,372,036,854,775,807
 - **Domyślna wartość**: 0L
+
+```java
+long liczba = 9000000000L;
+```
 
 --------------------------------
 
@@ -36,6 +48,10 @@ int liczba = 42;
 - **Rozmiar**: 32 bity
 - **Precyzja**: 6-7 cyfr znaczących
 - **Domyślna wartość**: 0.0f
+
+```java
+float liczba = 3.14f;
+```
 
 --------------------------------
 

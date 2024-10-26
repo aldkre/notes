@@ -13,11 +13,9 @@ def return_text(file):
         return caption_text
 
 # SIDEBAR
-st.sidebar.title("menu")
 wybor = st.sidebar.selectbox("Wybierz temat",("Strona główna", "JAVA", "BAZY DANYCH", "ZPI"))
 
 if wybor == "Strona główna":
-    st.title("Strona główna")
     st.balloons()
     st.write(return_text(".notes/strona glowna.txt"))
 

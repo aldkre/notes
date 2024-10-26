@@ -1,4 +1,4 @@
-Wartości prymitywne w Javie to podstawowe typy danych, które nie są obiektami.\n Java obsługuje osiem typów prymitywnych, a każdy z nich ma swoje specyficzne właściwości. Oto one:
+Wartości prymitywne w Javie to podstawowe typy danych, które nie są obiektami. Java obsługuje osiem typów prymitywnych, a każdy z nich ma swoje specyficzne właściwości. Oto one:
 
 
 st.caption("""

@@ -1,7 +1,7 @@
 Witamy na głównej stronie!
 
 
-Na niniejszej stronie odnajdziesz notatki związane z tematyką:
+Odnajdziesz tu notatki związane z tematyką:
 
 🔎 JAVA
 
@@ -9,3 +9,4 @@ Na niniejszej stronie odnajdziesz notatki związane z tematyką:
 
 🔎 ZPI
 
+Skorzystaj z panelu bocznego celem wyboru interesującego Cię tematu.

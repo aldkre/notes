@@ -21,19 +21,19 @@ with typy_danych:
     typ_prymitywny, typ_referencyjny = st.columns(2)
     with typ_prymitywny:
         st.subheader("Typy prymitywne")
-        st.caption(return_text('typy_prymitywne.txt'))
+        st.caption(return_text('.notes/typy_prymitywne.txt'))
 
     with typ_referencyjny:
         st.subheader("Typy referencyjne")
-        st.caption(return_text("typy_referencyjne.txt"))
+        st.caption(return_text(".notes/typy_referencyjne.txt"))
 
     st.divider()
 
-    st.caption(return_text("typy_danych_ogolnie.txt"))
+    st.caption(return_text(".notes/typy_danych_ogolnie.txt"))
 
 with pojecia:
-    st.caption(return_text("pojecia.txt"))
+    st.caption(return_text(".notes/pojecia.txt"))
 
 with metody:
-    st.caption(return_text("metody.txt"))
+    st.caption(return_text(".notes/metody.txt"))
 

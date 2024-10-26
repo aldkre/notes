@@ -1,0 +1,27 @@
+- **Metoda statyczna** (oznaczona słowem kluczowym `static`) należy do klasy, a nie do instancji tej klasy. Oznacza to, że można ją wywołać bez tworzenia obiektu klasy.
+  ```java
+  public class MojaKlasa
+  {
+      static void metodaStatyczna()
+      {
+          System.out.println("To jest metoda statyczna.");
+      }
+  }
+
+  // Wywołanie metody statycznej
+  MojaKlasa.metodaStatyczna();
+  ```
+- **Metoda instancji** działa na obiektach klasy i może operować na polach i metodach tej konkretnej instancji.
+  ```java
+  public class MojaKlasa
+  {
+      void metodaInstancji()
+      {
+          System.out.println("To jest metoda instancji.");
+      }
+  }
+
+  // Tworzenie obiektu i wywoływanie metody instancji
+  MojaKlasa mojObiekt = new MojaKlasa();
+  mojObiekt.metodaInstancji();
+  ```

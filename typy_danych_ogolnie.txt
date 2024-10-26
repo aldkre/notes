@@ -1,0 +1,41 @@
+Główną różnicą pomiędzy typami prymitywnymi a typami referencyjnymi jest to,
+że zmienne typów prymitywnych przechowują w pamięci komputera konkretne wartości,
+natomiast zmienne typu referencyjnego przechowują adresy obiektów w pamięci.
+
+Przechowywanie danych:
+- ***rejestry***
+- ***stos*** RAM, referencje do obiektów, szybki i efektywny sposób przydzielania pamięci
+- ***sterta*** RAM, obiekty, wolniejszy sposób
+- ***obszar stałych*** bezpośrednio w kodzie, ROM
+- ***obszar spoza RAM***
+
+W C++ obiekty da się umieszczać na stosie - potrzeba określenia rozmiaru i czasu życia
+
+Typy nieprymitywne oferują wiele funkcji i możliwości, które umożliwiają tworzenie bardziej złożonych
+i dynamicznych aplikacji.
+
+Obiekty wysokich precyzji: BigInteger, BigDecimal
+
+
+**Obiekt**:
+- Jest instancją klasy. Kiedy tworzysz obiekt, rezerwujesz pamięć i przypisujesz wartości do jego pól.
+- Obiekt istnieje w pamięci i można na nim wywoływać metody.
+- Przykład tworzenia obiektu:
+
+  ```java
+  KlasaMoja mojObiekt = new KlasaMoja();
+  ```
+
+**Referencja**:
+- Jest zmienną, która przechowuje adres obiektu w pamięci.
+- Referencje wskazują na obiekty, ale same nie przechowują danych obiektowych.
+- Można mieć wiele referencji do jednego obiektu.
+- Przykład przypisania referencji:
+
+  ```java
+  KlasaMoja innaReferencja = mojObiekt; // obie referencje wskazują na ten sam obiekt
+  ```
+
+W skrócie:
+- **Obiekt** to rzeczywista instancja klasy zawierająca dane.
+- **Referencja** to zmienna wskazująca na obiekt.

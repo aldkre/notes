@@ -1,0 +1,78 @@
+Wartości prymitywne w Javie to podstawowe typy danych, które nie są obiektami.\n Java obsługuje osiem typów prymitywnych, a każdy z nich ma swoje specyficzne właściwości. Oto one:
+
+
+st.caption("""
+1. **byte**:
+- **Rozmiar**: 8 bitów
+- **Zakres**: -128 do 127
+- **Domyślna wartość**: 0
+
+--------------------------------
+
+2. **short**:
+- **Rozmiar**: 16 bitów
+- **Zakres**: -32,768 do 32,767
+- **Domyślna wartość**: 0
+
+--------------------------------
+
+3. **int**:
+- **Rozmiar**: 32 bity
+- **Zakres**: -2^31 do 2^31-1
+- **Domyślna wartość**: 0
+
+```java
+int liczba = 42;
+```
+
+--------------------------------
+
+4. **long**:
+- **Rozmiar**: 64 bity
+- **Zakres**: -2^63 do 2^63-1
+- **Domyślna wartość**: 0L
+
+--------------------------------
+
+5. **float**:
+- **Rozmiar**: 32 bity
+- **Precyzja**: 6-7 cyfr znaczących
+- **Domyślna wartość**: 0.0f
+
+--------------------------------
+
+6. **double**:
+- **Rozmiar**: 64 bity
+- **Precyzja**: 15-16 cyfr znaczących
+- **Domyślna wartość**: 0.0d
+
+```java
+double pi = 3.14;
+```
+
+--------------------------------
+
+7. **char**:
+- **Rozmiar**: 16 bitów
+- **Zakres**: 0 do 65,535 (reprezentacja Unicode znaków)
+- **Domyślna wartość**: '\\u0000' (null char)
+
+```java
+char litera = 'A';
+```
+
+--------------------------------
+
+8. **boolean**:
+- **Rozmiar**: 1 bit
+- **Wartości**: true lub false
+- **Domyślna wartość**: false
+
+```java
+boolean prawda = true;
+```
+--------------------------------
+--------------------------------
+W przeciwieństwie do obiektów, wartości prymitywne nie mają metod ani atrybutów.
+Są przechowywane bezpośrednio na stosie, co oznacza, że są bardziej wydajne pod względem pamięci i
+przetwarzania niż obiekty.

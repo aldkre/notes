@@ -13,31 +13,44 @@ def return_text(file):
         return caption_text
 
 # SIDEBAR
-with st.sidebar:
+st.sidebar.title("menu")
+wybor = st.sidebar.selectbox("Wybierz temat",("Strona główna", "JAVA", "BAZY DANYCH", "ZPI"))
+
+if wybor == "Strona główna":
+    st.title("Strona główna")
+    st.balloons()
+    st.write(return_text(".notes/strona glowna.txt"))
+
+
+elif wybor == "JAVA":
+    # MAIN JAVA SITE
+    st.header("JAVA")
+    # JAVA TABS
+    typy_danych, pojecia, metody = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody"])
+
+    with typy_danych:
+        typ_prymitywny, typ_referencyjny = st.columns(2)
+        with typ_prymitywny:
+            st.subheader("Typy prymitywne")
+            st.caption(return_text('.notes/typy_prymitywne.txt'))
+
+        with typ_referencyjny:
+            st.subheader("Typy referencyjne")
+            st.caption(return_text(".notes/typy_referencyjne.txt"))
+
+        st.divider()
+
+        st.caption(return_text(".notes/typy_danych_ogolnie.txt"))
+
+    with pojecia:
+        st.caption(return_text(".notes/pojecia.txt"))
+
+    with metody:
+        st.caption(return_text(".notes/metody.txt"))
+
+elif wybor == "BAZY DANYCH":
     pass
 
-# MAIN JAVA SITE
-st.header("JAVA")
-
-typy_danych, pojecia, metody = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody"])
-
-with typy_danych:
-    typ_prymitywny, typ_referencyjny = st.columns(2)
-    with typ_prymitywny:
-        st.subheader("Typy prymitywne")
-        st.caption(return_text('.notes/typy_prymitywne.txt'))
-
-    with typ_referencyjny:
-        st.subheader("Typy referencyjne")
-        st.caption(return_text(".notes/typy_referencyjne.txt"))
-
-    st.divider()
-
-    st.caption(return_text(".notes/typy_danych_ogolnie.txt"))
-
-with pojecia:
-    st.caption(return_text(".notes/pojecia.txt"))
-
-with metody:
-    st.caption(return_text(".notes/metody.txt"))
+elif wybor == "ZPI":
+    pass
 

@@ -1,28 +1,20 @@
 ### Relacyjne bazy danych (RDBMS)
-Przechowują dane w tabelach. Przechowują dane w tabelach, które są ze sobą powiązane za pomocą kluczy. Używają języka SQL do zarządzania danymi. Idealne do przechowywania danych strukturalnych, gdzie relacje między danymi są kluczowe.
+Przechowują dane w tabelach, które są ze sobą powiązane za pomocą kluczy. Używają języka SQL do zarządzania danymi. Idealne do przechowywania danych strukturalnych, gdzie relacje między danymi są kluczowe.
 
 ***Przykłady***: MySQL, PostgreSQL, Oracle.
+
 ***Zastosowanie***: Aplikacje biznesowe, systemy transakcyjne.
 
 ------------------------------
 
 ### NoSQL
-Obejmuje różne typy baz danych, które nie używają tradycyjnych tabel relacyjnych. 
+NoSQL to rodzina baz danych zaprojektowanych do przechowywania i zarządzania dużymi ilościami danych o zróżnicowanej strukturze. W przeciwieństwie do relacyjnych baz danych, które używają ustalonych schematów do organizacji danych w tabelach, bazy NoSQL oferują większą elastyczność.
 
 ***Przykłady***:
-  - ***Dokumentowe***: Przechowują dane w formie dokumentów JSON lub BSON. Idealne do przechowywania danych nieustrukturyzowanych. Przykład: MongoDB.
-  - ***Kolumnowe***: Przechowują dane w kolumnach zamiast wierszy, co jest efektywne dla analizy dużych zbiorów danych. Przykład: Cassandra.
-  - ***Klucz-wartość***: Przechowują dane jako pary klucz-wartość, co jest szybkie i proste. Przykład: Redis.
-
-***Zastosowanie***: Aplikacje internetowe, systemy zarządzania treścią.
-
-------------------------------
-
-### Bazy danych grafowe
-Przechowują dane w formie węzłów i krawędzi, co jest idealne do modelowania relacji między danymi. Używane w aplikacjach, gdzie relacje między danymi są złożone, jak w sieciach społecznościowych. W sieci społecznościowej, użytkownicy są węzłami, a relacje między nimi (np. znajomości) są krawędziami. Neo4j pozwala na łatwe modelowanie i zapytania dotyczące takich relacji, np. "Znajdź wszystkich znajomych użytkownika X".
-
-***Przykłady***: Neo4j, ArangoDB.
-***Zastosowanie***: Sieci społecznościowe, systemy rekomendacji.
+  - ***Dokumentowe***: Przechowują dane w formie dokumentów JSON lub BSON. Idealne do przechowywania danych nieustrukturyzowanych. ***Przykład***: MongoDB. ***Zastosowanie***: Aplikacje internetowe, systemy zarządzania treścią.
+  - ***Kolumnowe***: Przechowują dane w kolumnach zamiast wierszy, co jest efektywne dla analizy dużych zbiorów danych. ***Przykład***: Cassandra, Apache HBase, Google Bigtable. ***Zastosowanie***: Analiza danych, hurtownie danych.
+  - ***Klucz-wartość***: Przechowują dane jako pary klucz-wartość, co jest szybkie i proste. Przykład: Redis, DynamoDB, Riak. ***Zastosowanie***: Caching, sesje użytkowników.
+  - ***Bazy grafowe***: Przechowują dane w formie węzłów i krawędzi, co jest idealne do modelowania relacji między danymi. Używane w aplikacjach, gdzie relacje między danymi są złożone, jak w sieciach społecznościowych. W sieci społecznościowej, użytkownicy są węzłami, a relacje między nimi (np. znajomości) są krawędziami. Neo4j pozwala na łatwe modelowanie i zapytania dotyczące takich relacji, np. "Znajdź wszystkich znajomych użytkownika X". ***Przykłady***: Neo4j, ArangoDB. ***Zastosowanie***: Sieci społecznościowe, systemy rekomendacji.
 
 ------------------------------
 
@@ -30,23 +22,8 @@ Przechowują dane w formie węzłów i krawędzi, co jest idealne do modelowania
 Przechowują dane jako obiekty, podobnie jak w programowaniu obiektowym. Ułatwiają przechowywanie danych, które mają złożone struktury. 
 
 ***Przykłady***: db4o, ObjectDB.
+
 ***Zastosowanie***: Aplikacje wymagające złożonej logiki biznesowej.
-
-------------------------------
-
-### Bazy danych kolumnowe 
-Przechowują dane w kolumnach zamiast wierszy, co jest efektywne dla analizy dużych zbiorów danych. Idealne do przechowywania danych analitycznych. 
-
-***Przykłady***: Apache HBase, Google Bigtable.
-***Zastosowanie***: Analizy danych, hurtownie danych.
-
-------------------------------
-
-### Bazy danych klucz-wartość
-Przechowują dane jako pary klucz-wartość, co jest szybkie i proste. Idealne do przechowywania danych sesyjnych i cache'owania. 
-
-***Przykłady***: DynamoDB, Riak.
-***Zastosowanie***: Caching, sesje użytkowników.
 
 ------------------------------
 
@@ -68,6 +45,7 @@ Przechowują dane geograficzne i przestrzenne. Używane w aplikacjach GIS (Geogr
 Dane są przechowywane na wielu serwerach w różnych lokalizacjach, co zwiększa dostępność i odporność na awarie.
 
 ***Przykłady***: Google Bigtable, Amazon DynamoDB.
+
 ***Zastosowanie***: Duże systemy rozproszone, usługi chmurowe.
 
 ------------------------------
@@ -76,6 +54,7 @@ Dane są przechowywane na wielu serwerach w różnych lokalizacjach, co zwiększ
 Dane są przechowywane w pamięci RAM, co pozwala na bardzo szybki dostęp do danych.
 
 ***Przykłady***: Redis, SAP HANA.
+
 ***Zastosowanie***: Aplikacje wymagające bardzo szybkiego dostępu do danych.
 
 ------------------------------
@@ -83,13 +62,15 @@ Dane są przechowywane w pamięci RAM, co pozwala na bardzo szybki dostęp do da
 ### Bazy danych hierarchiczne
 Dane są zorganizowane w struktury drzewiaste, gdzie każda relacja rodzic-dziecko jest jednoznacznie zdefiniowana.
 
-Przykłady: IBM IMS.
-Zastosowanie: Aplikacje starsze, systemy zarządzania treścią.
+***Przykłady***: IBM IMS.
+
+***Zastosowanie***: Aplikacje starsze, systemy zarządzania treścią.
 
 ------------------------------
 
 ### Bazy danych sieciowe
 Umożliwiają bardziej złożone relacje niż hierarchiczne bazy danych, pozwalając na wiele relacji między danymi.
 
-Przykłady: Integrated Data Store (IDS).
-Zastosowanie: Zarządzanie złożonymi strukturami danych.
+***Przykłady***: Integrated Data Store (IDS).
+
+***Zastosowanie***: Zarządzanie złożonymi strukturami danych.

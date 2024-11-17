@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(
     page_title="Java notes",
     page_icon="colapsed",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
     menu_items={}
 )
 
@@ -48,7 +48,7 @@ elif wybor == "JAVA":
 elif wybor == "BAZY DANYCH":
     folder= ".notes/sql"
 
-    typy_baz, pojecia, operatory, operacje = st.tabs(["Typy baz danych", "Podstawowe pojęcia", "Operatory", "Rodzaje operacji"])
+    typy_baz, pojecia, operatory, operacje, zadania = st.tabs(["Typy baz danych", "Podstawowe pojęcia", "Operatory", "Rodzaje operacji", "Zadania - lab."])
     with typy_baz:
         st.caption(return_text(folder, file="typy_baz_danych.txt"))
 
@@ -60,6 +60,9 @@ elif wybor == "BAZY DANYCH":
 
     with operacje:
         st.caption(return_text(folder, file="operacje_sql.txt"))
+
+    with zadania:
+        st.caption(return_text(folder, file="zadania lab.txt"))
 
 elif wybor == "ZPI":
     pass

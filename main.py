@@ -7,6 +7,17 @@ st.set_page_config(
     menu_items={}
 )
 
+st.markdown(
+    f'''
+        <style>
+            .sidebar .sidebar-content {{
+                width: 200px;
+            }}
+        </style>
+    ''',
+    unsafe_allow_html=True
+)
+
 def return_text(folder, file):
     with open(f"{folder}/{file}", 'r', encoding='utf-8') as file:
         caption_text = file.read()

@@ -7,24 +7,19 @@ st.set_page_config(
     menu_items={}
 )
 
-st.markdown(
-    f'''
-        <style>
-            .sidebar .sidebar-content {{
-                width: 200px;
-            }}
-        </style>
-    ''',
-    unsafe_allow_html=True
-)
-
 def return_text(folder, file):
     with open(f"{folder}/{file}", 'r', encoding='utf-8') as file:
         caption_text = file.read()
         return caption_text
 
-# SIDEBAR
-wybor = st.sidebar.selectbox("Wybierz temat",("Strona główna", "JAVA", "BAZY DANYCH", "ZPI"))
+# MENU
+obraz, menu = st.columns([1,5])
+with menu:
+    wybor = st.selectbox("Wybierz temat",("Strona główna", "JAVA", "BAZY DANYCH", "ZPI"))
+with obraz:
+    st.image("MENU.png", width=100)
+
+st.divider()
 
 if wybor == "Strona główna":
     folder = ".notes"

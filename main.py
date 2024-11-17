@@ -13,7 +13,7 @@ def return_text(folder, file):
         return caption_text
 
 # MENU
-obraz, menu = st.columns([1,5])
+obraz, menu = st.columns([1,3])
 with menu:
     wybor = st.selectbox("Wybierz temat",("Strona główna", "JAVA", "BAZY DANYCH", "ZPI"))
 with obraz:

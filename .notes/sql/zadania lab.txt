@@ -1,0 +1,151 @@
+Używany system zarządzania relacyjnymi bazami danych: **Postgres**
+
+
+Tabele źródłowe utworzone na podstawie pliku: **sql-tools/labbd.sql**
+
+
+*W pliku na potrzeby dostosowania do systemu Postgres, zmieniono datetime -> timestamp* //
+*Rozwiązania nie zostały sprawdzone, w późniejszym czasie uzupełnię o inne możliwe rozwiązania oraz resztę odpowiedzi*
+
+```sql
+-- 3.1. Podać nazwisko studenta o numerze 5.
+SELECT nazwisko 
+FROM studenci 
+WHERE nr_stud = 5;
+
+-- 3.2. Podać nazwy przedmiotów zaczynające się od litery A.  
+SELECT nazwa_przedm
+FROM przedmioty
+WHERE nazwa_przedm ILIKE 'a%';
+
+-- 3.3. Podać (w porządku alfabetycznym) nazwiska studentek, które z dowolnego przedmiotu otrzymały ocenę > 4.5
+SELECT nazwisko
+FROM studenci 
+WHERE plec = 'K' AND  nr_stud IN -- albo = ANY
+(SELECT nr_stud FROM oceny WHERE ocena > 4.5)
+ORDER BY nazwisko;
+
+SELECT DISTINCT s.nazwisko
+FROM studenci s, oceny o
+WHERE s.nr_stud = o.nr_stud
+AND s.plec = 'K' AND o.ocena > 4.5
+ORDER BY s.nazwisko;
+
+-- 3.4. Podać (w odwrotnej kolejności alfabetycznej) nazwiska studentów mężczyzn, którzy studiują na kierunku ELEKTRONIKA MED lub INFORMATYKA.    
+SELECT nazwisko
+FROM studenci
+WHERE plec = 'M' AND  nr_kier IN -- albo = ANY
+(SELECT nr_kier FROM kierunki WHERE LOWER(nazwa_kier) IN('informatyka', 'elektronika med'))
+ORDER BY nazwisko DESC;
+
+-- 3.5. Podać nazwy przedmiotów, z których wystawiono przynajmniej jedną ocenę = 5. Nazwa danego przedmiotu powinna się pojawić tylko raz. 
+SELECT nazwa_przedm
+FROM przedmioty
+WHERE nr_przedm IN
+(SELECT nr_przedm FROM oceny WHERE ocena = 5)
+ORDER BY nazwa_przedm;
+
+SELECT DISTINCT nazwa_przedm
+FROM przedmioty p, oceny o
+WHERE p.nr_przedm = o.nr_przedm AND ocena = 5
+ORDER BY nazwa_przedm;
+
+-- 3.6. Podać liczbę studentów kierunku INFORMATYKA.   
+SELECT COUNT(nr_stud)
+FROM studenci 
+WHERE nr_kier IN
+(SELECT nr_kier FROM kierunki WHERE nazwa_kier = 'INFORMATYKA');
+
+-- 3.7. Podać średnie ocen studentów, których nazwiska zaczynają się od liter KO. 
+SELECT round(AVG(ocena),2)
+FROM oceny
+WHERE nr_stud IN 
+(SELECT nr_stud FROM studenci WHERE nazwisko ILIKE 'ko%');
+
+SELECT round(AVG(o.ocena),2)
+FROM oceny o, studenci s
+WHERE o.nr_stud = s.nr_stud
+AND UPPER(s.nazwisko) LIKE 'KO%';
+
+-- 3.8. Podać daty urodzenia najstarszych studentów na poszczególnych kierunkach. 
+SELECT k.nr_kier, k.nazwa_kier, MIN(data_ur)
+FROM studenci s, kierunki k
+WHERE s.nr_kier = k.nr_kier
+GROUP BY k.nr_kier, k.nazwa_kier
+ORDER BY k.nr_kier;
+
+SELECT nr_kier, data_ur
+FROM studenci s1
+WHERE data_ur = (SELECT MIN(data_ur) FROM studenci s2 WHERE s1.nr_kier = s2.nr_kier)
+ORDER BY nr_kier;
+
+-- 3.9. Dla każdego studenta podać liczbę ocen, które otrzymał z poszczególnych przedmiotów.
+SELECT s.nr_stud, s.nazwisko, p.nazwa_przedm, round(AVG(o.ocena),2) --s.nr_stud, s.nazwisko, s.nr_kier, o.nr_przedm, p.nazwa_przedm, o.zal_egz, o.termin, o.ocena
+FROM studenci s, oceny o, przedmioty p
+WHERE s.nr_stud = o.nr_stud AND o.nr_przedm = p.nr_przedm
+GROUP BY s.nr_stud, s.nazwisko, p.nazwa_przedm
+ORDER BY s.nazwisko, p.nazwa_przedm
+
+-- 3.10. Podać nazwy przedmiotów, z których wystawiono więcej niż 8 ocen.  
+SELECT p.nazwa_przedm
+FROM oceny o, przedmioty p
+WHERE o.nr_przedm = p.nr_przedm
+GROUP BY o.nr_przedm, p.nazwa_przedm
+HAVING COUNT(o.ocena) > 8
+ORDER BY p.nazwa_przedm
+
+-- 3.11. Dla każdego przedmiotu podać liczbę studentów, którzy otrzymali z nich ocenę.  (Uwaga! Niektórzy studenci mają kilka ocen z danego przedmiotu).  
+SELECT p.nazwa_przedm, COUNT(DISTINCT o.nr_stud)
+FROM oceny o, przedmioty p
+WHERE o.nr_przedm = p.nr_przedm
+GROUP BY o.nr_przedm, p.nazwa_przedm
+
+-- 3.12. Podać nazwiska studentów, którzy są starsi od studenta WILK. 
+SELECT DISTINCT nazwisko
+FROM studenci
+WHERE data_ur < (SELECT data_ur FROM studenci WHERE UPPER(nazwisko) = 'WILK')
+ORDER BY nazwisko
+
+-- 3.13. Podać nazwiska studentów, których średnia ocen jest większa od średniej ocen studenta WALCZAKA. 
+SELECT DISTINCT nazwisko
+FROM studenci
+WHERE nr_stud IN 
+(SELECT nr_stud FROM oceny GROUP BY nr_stud HAVING AVG(ocena) > 
+(SELECT AVG(ocena) FROM oceny WHERE nr_stud = 
+(SELECT nr_stud from studenci WHERE UPPER(nazwisko) = 'WALCZAK')
+)
+)
+ORDER BY nazwisko
+
+-- 3.14. Podać nazwy kierunków, na których studiuje więcej studentów niż na kierunku ELEKTRONIKA MED. 
+SELECT DISTINCT nazwa_kier
+FROM kierunki
+WHERE nr_kier IN
+(SELECT nr_kier FROM studenci GROUP BY nr_kier HAVING COUNT(DISTINCT nr_stud) >
+(SELECT COUNT(DISTINCT nr_stud) FROM studenci WHERE nr_kier =
+(SELECT nr_kier FROM kierunki WHERE UPPER(nazwa_kier) = 'ELEKTRONIKA MED')
+)
+)
+ORDER BY nazwa_kier
+
+-- 3.15. Podać numery i nazwiska studentów kierunku INFORMATYKA, którzy z przedmiotu BAZY DANYCH otrzymali oceny wyższe od ocen każdego ze studentów kierunku ROBOTYKA z tego przedmiotu.   
+-- 3.16. Podaj przedmioty realizowane przez największą liczbę pracowników. 
+-- 3.17. Podać daty urodzenia i nazwiska najstarszych studentów na poszczególnych kierunkach (wykorzystaj zapytania skorelowane).   
+-- 3.18. Podać średnią wypłatę wszystkich pracowników będących kierownikami tematów (chodzi o wyświetlenie jednej kwoty jako średniej wszystkich kierowników).   
+
+-- 4.1. Do tabeli zespoly dopisać jeszcze jeden wiersz, podając dowolne wartości dla wszystkich atrybutów. Sprawdzić efekt wykonanej operacji, wykonując na tabeli zapytanie SELECT. 
+-- 4.2. Do tabeli zespoly ponownie dopisać nowy wiersz, ale tym razem proszę uzupełnić tylko dane dotyczące numeru zespołu i numeru instytutu.  Efekt wykonanej operacji sprawdzić, wykonując zapytanie SELECT z warunkiem  …NAZWA_ZESP IS NULL...  Czy został wyświetlony rekord wprowadzony przed chwilą? Jeżeli nie, to zmodyfikuj zapytanie tak, aby rekord został wyświetlony. 
+-- 4.3. Zaktualizować wiersz wpisany w poleceniu 4.2, dodając (aktualizując) brakujące dane o numerze pracowniczym kierownika zespołu i nazwie zespołu. Przykładowo, jako numer pracowniczy kierownika zespołu można użyć wartości 10. Sprawdź poprawność aktualizacji odpowiednim poleceniem SELECT. 
+-- 4.4. Do tabeli przedmioty dodać nowy przedmiot na kierunku ROBOTYKA, którego nazwa brzmi STATYSTYKA. W związku z tym, że przedmiot ma zarówno formę wykładu, jak i ćwiczeń, należy dodać ten przedmiot jako 2 osobne wiersze – raz jako wykład (wartość atrybutu KOD_TPRZEDM to WYK), a raz jako ćwiczenia (wartość atrybutu KOD_TPRZEDM to CWC).  Dla wykładu, przedmiotem nadrzędnym powinien być wykład ANALIZA MATEMATYCZNA, a dla ćwiczeń – wykład z dodanej przed chwilą statystyki. Pracownikiem odpowiedzialnym za przedmiot – i za wykład i za ćwiczenia – powinien być kierownik zespołu nr 5. 
+-- 4.5. Sporządzić zestawienie liczby studentów, którzy z przedmiotu o nazwie TABAKS dostali poszczególne oceny (ile osób dostało ocenę 2, ile - ocenę 3, itd.).  
+-- 4.6. Z tabeli oceny usunąć wszystkie wiersze, w których z przedmiotu o numerze 70 zostały wystawione oceny niedostateczne.  
+-- Wykonać ponownie zapytanie 4.5, potwierdzając poprawność usunięcia żądanych wierszy. 
+-- 4.7. Operując na tabeli oceny, wszystkim studentom, którzy w terminie pierwszym dostali z przedmiotu o numerze 70 ocenę dobrą podnieść ocenę o 1 stopień.  Sprawdzić poleceniem SELECT z polecenia 4.5,  czy planowana zmiana powiodła się, tj. czy pojawiły się osoby z oceną bardzo dobrą. 
+-- 4.8. Zdefiniować perspektywę pokazującą zawartość kolumn NR_STUD i NAZWISKO tabeli studenci. 
+-- 4.9. Wykonać zapytanie, operujące na utworzonej perspektywie, pokazujące dane studentów, których numery są mniejsze niż 10. 
+-- 4.10. Za pośrednictwem utworzonej perspektywy (UPDATE nazwa_perspektywy SET …) zmienić nazwisko studenta o numerze 1 na MARECKI. 
+-- 4.11. Wykonać zapytanie sprawdzające czy zmiana została faktycznie odnotowana w tabeli studenci: select * from studenci where nr_stud=1; 
+-- 4.12. Zdefiniować perspektywę pokazującą dla danego studenta (kolumny: NR_STUD i NAZWISKO tabeli studenci) oceny (kolumna OCENA tabeli oceny), które uzyskali w poszczególnych przedmiotach (kolumna NAZWA_PRZEDM tabeli przedmioty). Nadać kolumnom widoku (perspektywy) nazwy inne niż w tabelach bazowych (np. zamiast NR_STUD – id_studenta). 
+-- 4.13. Wykonać zapytanie, operujące na utworzonej perspektywie, pokazujące dane wszystkich studentów. 
+-- 4.14. Za pośrednictwem utworzonej perspektywy (UPDATE nazwa_perspektywy SET …) zmienić ocenę studenta o numerze 2 w przedmiocie BAZY DANYCH na 5. 
+```

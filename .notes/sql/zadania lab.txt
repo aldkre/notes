@@ -1,7 +1,7 @@
 Używany system zarządzania relacyjnymi bazami danych: **Postgres**
 
 
-Tabele źródłowe utworzone na podstawie pliku: **sql-tools/labbd.sql**
+Tabele źródłowe utworzone na podstawie pliku: **sql-tools/labbd.sql** (PLATFORMA ZDALNEJ EDUKACJI -> Bazy danych i język zapytań SQL [SPD] -> Materiały pomocnicze do lab -> MySQL - narzędzie HeidiSQL
 
 
 *W pliku na potrzeby dostosowania do systemu Postgres, zmieniono datetime -> timestamp* //

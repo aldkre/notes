@@ -1,0 +1,565 @@
+***Część 1***
+
+***Zmienne, operatory i instrukcje warunkowe***
+
+*Zadanie 1. Napisz program, który prosi użytkownika o wprowadzenie swojego imienia i nazwiska, a następnie wyświetlający w konsoli napis „Witaj imię_nazwisko na kursie Programowanie języku w JAVA."*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        String imie, nazwisko, login;
+        System.out.println("Podaj imie: ");
+        imie = input.next();
+        System.out.println("Podaj nazwisko: ");
+        nazwisko = input.next();
+        login = (imie+"_"+nazwisko).toLowerCase();
+        System.out.println("Witaj "+login+" na kursie Prpgramowanie w języku JAVA.");
+	input.close();
+    }  
+}
+```
+*Zadanie 2. Przetestuj działanie wyświetlania różnych typów danych z punku 3 na poprzedniej stronie. Należy przeanalizować każdą z linii System.out.println() i spróbować przewidzieć wynik operacji.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        final double LICZBA_PI=3.14;
+        String napis1 = "Ala ma ";
+        String napis2 = "kota.";
+        System.out.println(1+5); //6
+        System.out.println(1+LICZBA_PI); // 4.140000000000001
+        System.out.println(1.0+2.0); // 3.0
+        System.out.println(Math.abs(-100)); //100
+        System.out.println(Math.sqrt(81)); //9.0
+        System.out.println(Math.pow(2,5)); //32.0
+        System.out.println("a"+"A"); //aA
+        System.out.println(napis1.concat(napis2)); //Ala ma kota.
+        System.out.println(napis1 + napis2); //Ala ma kota.
+        System.out.println("a"+ 1 + 2); //a12
+        System.out.println("a"+ (1 + 2)); //a3
+        System.out.println("cudzysłów \""); //cudzys  w "
+        System.out.printf("To jest napis %s%s",napis1,napis2); //To jest napis Ala ma kota.
+    }  
+}
+```
+
+*Zadanie 3. Odczytaj z konsoli dowolny ciąg znaków, następnie dokonaj zmiany wielkości znaków na duże litery i wyświetl ciąg na ekranie (Wskazówka: sprawdź i wykorzystaj dostępne metody klasy String).*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz dowolny ciąg znaków: ");
+        String text = input.next();
+        System.out.println(text.toUpperCase());
+	input.close();
+    }  
+}
+```
+
+*Zadanie 4. Przewidzieć wynik działania oraz typ wyniku, podczas dokonywania automatycznej konwersji.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        short a = 5;
+        int b = 2;
+        double c = 1.0;
+        double d = 5.0;
+        
+        System.out.println( a / b + c ); //Wpisać wynik i typ 3.0 double
+        System.out.println( a + c / b ); //Wpisać wynik i typ 5.5 double
+        System.out.println( a * c / b ); //Wpisać wynik i typ 2.5 double
+        System.out.println( a / b ); //Wpisać wynik i typ 2 int 
+        System.out.println( d / b ); //Wpisać wynik i typ 2.5 double
+        System.out.println( a + 0 / b ); //Wpisać wynik i typ 5 int
+        System.out.println( (d + 1) / b ); //Wpisać wynik i typ 3.0 double
+        System.out.println( (a + 0.0) / b ); //Wpisać wynik i typ 2.5 double
+        System.out.println( (d + 1.0) / b ); //Wpisać wynik i typ 3.0 double
+    }  
+}
+```
+
+*Zadanie 5. Napisz program, który sprawdza czy wprowadzona przez użytkownika liczba całkowita jest parzysta lub nieparzysta i wyświetl odpowiedni komunikat.*
+
+podstawowe rozwiązanie
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+      
+        System.out.println("Wpisz dowolną liczbę całkowitą: ");
+        int x = input.nextInt();
+        if (x % 2 == 0)
+        {
+            System.out.println("Wpisana liczba całkowita jest liczbą parzystą.");
+        }
+        else
+        {
+            System.out.println("Wpisana liczba całkowita jest liczbą nieparzystą.");
+        }
+	input.close();
+    } 
+}
+```
+
+rozszerzone rozwiązanie
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+      
+        System.out.println("Wpisz dowolną liczbę całkowitą: ");
+        try
+        {
+            int x = input.nextInt();
+            if (x % 2 == 0)
+            {
+                System.out.println("Wpisana liczba całkowita jest liczbą parzystą.");
+            }
+            else
+            {
+                System.out.println("Wpisana liczba całkowita jest liczbą nieparzystą.");
+            }
+        } catch (Exception e)
+        {
+            System.out.println("Wpisana przez Ciebie liczba nie jest liczbą całkowitą bądź wykracza poza 2 147 483 647.");
+        }
+	input.close();
+    }  
+}
+```
+*Zadanie 6. Zmodyfikuj program z punktu poprzedniego tak aby sprawdzał czy środkowa cyfra w 3-cyfrowej liczbie wprowadzonej przez użytkownika jest parzysta lub nieparzysta i wyświetl odpowiedni komunikat na konsoli.*
+
+podstawowe rozwiązanie
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz dowolną liczbę całkowitą trzycyfrową: ");
+        int number = input.nextInt(); // bez sprawdzenia czy została wpisana liczba (int)
+        String numberAsText = String.valueOf(number);
+        if (numberAsText.length() == 3)
+        {
+            char[] numbers = numberAsText.toCharArray();
+            if (numbers[1] % 2 == 0)
+            {
+                System.out.println("Środkowa cyfra liczby trzycyfrowej jest parzysta.");
+            }
+            else
+            {
+                System.out.println("Środkowa cyfra liczby trzycyfrowej jest nieparzysta.");
+            }
+        }
+        else
+        {
+            System.out.println("Nie wpisano wartości trzycyfrowej.");
+        }
+	input.close();
+    } 
+}
+```
+
+rozszerzone rozwiązanie
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz dowolną liczbę całkowitą trzycyfrową: ");
+        String text = input.next();
+        int n = text.length();
+        if (n == 3)
+        {
+            try
+            {
+                int x = Integer.parseInt(text);
+                if (x % 2 == 0)
+                {
+                    System.out.println("Wpisana liczba całkowita jest liczbą parzystą.");
+                }
+                else
+                {
+                    System.out.println("Wpisana liczba całkowita jest liczbą nieparzystą.");
+                } 
+            }
+            catch (Exception e)
+            {
+                System.out.println("Wpisano wartość nieliczbową.");
+            }
+        }
+        else
+        {
+            System.out.println("Nie wpisano wartości trzycyfrowej.");
+        }
+	input.close();
+    } 
+}
+```
+
+*Zadanie 7. Napisz program, który sprawdzi czy wprowadzona przez użytkownika liczba całkowita jest podzielna jednocześnie przez 2 oraz 5 i wyświetl odpowiedni komunikat.*
+
+podstawowe rozwiązanie
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz dowolną liczbę całkowitą: ");
+        int number = input.nextInt(); // bez sprawdzenia czy została wpisana liczba (int)
+        if (number % 10 == 0)
+        {
+            System.out.println("Wpisana liczba całkowita jest podzielna przez 2 oraz 5.");
+        }
+        else
+        {
+            System.out.println("Wpisana liczba całkowita nie jest podzielna przez 2 oraz 5.");
+        }
+	input.close();
+    }
+}
+```
+
+rozszerzone rozwiązanie
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz dowolną liczbę całkowitą: ");
+        int number = input.nextInt(); // bez sprawdzenia czy została wpisana liczba (int)
+        if (number % 10 == 0)
+        {
+            System.out.println("Wpisana liczba całkowita jest podzielna przez 2 oraz 5.");
+        }
+        else if (number % 2 == 0)
+        {
+            System.out.println("Wpisana liczba całkowita jest podzielna przez 2, ale nie jest podzielna przez 5.");
+        }
+        else if(number % 5 == 0)
+        {
+            System.out.println("Wpisana liczba całkowita jest podzielna przez 5, ale nie jest podzielna przez 2.");
+        }
+        else
+        {
+            System.out.println("Wpisana liczna całkowita nie jest podzielna ani przez 2 ani przez 5.");
+        }
+	input.close();
+    }
+}
+```
+
+*Zadanie 8. Napisz program, który na podstawie wprowadzonego w konsoli numeru pesel (11 cyfr) ustali płeć właściciela numeru. Numer pesel powinien zostać wprowadzony jako obiekt typu String tekst = sc.nextLine();*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz PESEL: ");
+        String pesel = input.next();
+        if (pesel.length() == 11)
+        {
+            char[] peselAsArray = pesel.toCharArray();
+            if (peselAsArray[9] % 2 == 0) // nie sprawdzono czy w pozycji 10 wpisano cyfrę
+            {
+                System.out.println("Kobieta");
+            }
+            else
+            {
+                System.out.println("Mężczyzna");
+            }
+        }
+        else
+        {
+            System.out.println("Nie wpisano 11 znaków");
+        }
+	input.close();
+    }
+}
+```
+
+*Zadanie 9. Napisz program wykorzystujący instrukcję wielokrotnego wyboru switch-case, który wypisze nazwę dnia tygodnia odpowiadającą wprowadzonej przez użytkownika liczbie N. (np. dla N=1 na konsoli wypisze się „Poniedziałek”, dla N=4 na konsoli wypisze się „Czwartek” itd.)*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę odpowiadającą dniu tygodnia: ");
+        short nrDniaTygodnia = input.nextShort(); // nie sprawdza czy wprowadzono liczbę (short)
+        switch (nrDniaTygodnia)
+        {
+            case 1:
+                System.out.println("Poniedziałek");
+                break;
+            case 2:
+                System.out.println("Wtorek");
+                break;
+            case 3:
+                System.out.println("Środa");
+                break;
+            case 4:
+                System.out.println("Czwartek");
+                break;
+            case 5:
+                System.out.println("Piątek");
+                break;
+            case 6:
+                System.out.println("Sobota");
+                break;
+            case 7:
+                System.out.println("Niedziela");
+                break;
+            default:
+                System.out.println("Nie ma takiego dnia tygodnia");              
+        }
+	input.close();
+    }
+}
+```
+
+*Zadanie 10. Zmodyfikuj program z poprzedniego punktu tak aby wypisywał wszystkie kolejne dni tygodnia począwszy od numeru N (np. dla N=5 na konsoli wypisze się „Piątek” „Sobota” „Niedziela”). Dodatkowo zabezpiecz program w sytuacji, gdy użytkownik poda liczbę N>7 lub N<1 i wyświetl komunikat na konsoli: „Nie ma takiego dnia tygodnia”.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę odpowiadającą dniu tygodnia: ");
+        short nrDniaTygodnia = input.nextShort(); // nie sprawdza czy wprowadzono liczbę (short)
+        if (nrDniaTygodnia >= 1 && nrDniaTygodnia <=7)
+        {
+            switch (nrDniaTygodnia)
+            {
+                case 1:
+                    System.out.println("Poniedziałek");
+                case 2:
+                    System.out.println("Wtorek");
+                case 3:
+                    System.out.println("Środa");
+                case 4:
+                    System.out.println("Czwartek");
+                case 5:
+                    System.out.println("Piątek");
+                case 6:
+                    System.out.println("Sobota");
+                case 7:
+                    System.out.println("Niedziela");
+            }
+        }
+	input.close();
+    }
+}
+```
+
+*Zadanie 11. * Napisz program, wyznaczający pierwiastki równania kwadratowego postaci ax2+bx+c =0. Użytkownik jest proszony w konsoli o wprowadzenie współczynników równania.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.print("Podaj współczynnik a: "); 
+        double a = input.nextDouble(); 
+        System.out.print("Podaj współczynnik b: "); 
+        double b = input.nextDouble(); 
+        System.out.print("Podaj współczynnik c: "); 
+        double c = input.nextDouble(); 
+        
+        double delta = Math.pow(b,2) - 4 * a * c; 
+        
+        if (delta > 0) 
+        { 
+            double x1 = (-b + Math.sqrt(delta)) / (2 * a); 
+            double x2 = (-b - Math.sqrt(delta)) / (2 * a); 
+            System.out.println("Równanie ma dwa pierwiastki: x1 = " + x1 + ", x2 = " + x2); 
+        } 
+        else if (delta == 0) 
+        { 
+            double x = -b / (2 * a); 
+            System.out.println("Równanie ma jeden pierwiastek: x = " + x); 
+        } 
+        else
+        { 
+            System.out.println("Równanie nie ma rzeczywistych pierwiastków."); 
+        } 
+        input.close();
+    }
+}
+```
+
+*Zadanie 12. *Napisz program wyznaczający wartość silni dla zadanego przez użytkownika parametru N, odczytanego z konsoli. (Wskazówka: Silnią liczby naturalnej N, nazywamy iloczyn wszystkich kolejnych liczb naturalnych nie większych od N, np. 4! = 1 * 2 * 3 * 4 = 24. UWAGA: Do rozwiązania wykorzystaj pętlę for).*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę naturalną: ");
+        int number = input.nextInt(); // nie sprawdza czy wpisano liczbę (int)
+        int temp = 1;
+        for (int i = 1; i <= number; i++)
+        {
+            temp *= i;
+        }
+        System.out.println(number+"! = "+temp);
+        input.close();
+    }
+}
+```
+
+*Zadanie 13. *Napisz program, który policzy średnią N liczb całkowitych wprowadzonych przez użytkownika. Najpierw poproś użytkownika o wprowadzenie liczby N, a następnie wprowadzenie N kolejnych liczb całkowitych. Wynik działania wyświetl na konsoli.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Z ilu liczb chcesz obliczyć średnią? ");
+        int x = input.nextInt(); // nie sprawdza czy wpisano liczbę (int)
+        int counter = 0;
+        int[] numbers = new int[x];
+        
+        while (counter < x)
+        {
+            System.out.println("Wpisz liczbę całkowitą: ");
+            int number = input.nextInt(); // nie sprawdza czy wpisano liczbę (int)
+            numbers[counter] = number;
+            counter++;
+        }
+        
+        int sum = 0;
+        for (int value : numbers) 
+        {
+            sum += value;
+        }
+        System.out.println("Suma wprowadzonych liczb wynosi: "+sum);
+        input.close();
+    }
+}
+```
+
+*Zadanie 14. *Napisz program, który wyświetli wprowadzoną przez użytkownika liczbę naturalną wspak. Przykładowo po wprowadzeniu liczby 2579, na konsoli powinna zostać wypisana liczba 9752. UWAGA: do rozwiązania zadania należy użyć pętli while.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę naturalną: ");
+        String number = input.next();
+        char[] numbersArray = number.toCharArray();
+        int counter = number.length() - 1;
+        String converted = "";
+        while (counter >= 0)
+        {
+            converted += numbersArray[counter--];
+        }
+        System.out.println("Wpisana liczba naturalna wspak to: "+converted);
+        input.close();
+    }
+}
+```
+
+*Zadanie 15. *Napisz program, który doda wszystkie cyfry liczby naturalnej wprowadzonej przez użytkownika i wyświetli wynik na konsoli. UWAGA: do rozwiązania zadania należy użyć pętli do-while.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę naturalną: ");
+        String numberAsString = input.next();
+        char[] numbersAsCharArray = numberAsString.toCharArray();
+        int counter = 0;
+        int sum = 0;
+        do
+        {
+            char nChar = numbersAsCharArray[counter++];
+            int n = Character.getNumericValue(nChar);
+            sum += n;
+        } 
+        while (counter < numberAsString.length());
+        System.out.println("Suma wszystkich cyfr wpisanej liczby wynosi: "+sum);
+        input.close();
+    }
+}
+```
+
+*Zadanie 16. *Napisz program, który sprawdzi czy wprowadzona przez użytkownika liczba naturalna jest liczbą pierwszą. Wyświetl odpowiedni komunikat na konsoli.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę naturalną: ");
+        int number = input.nextInt();
+        int lpDzielnikow = 0;
+        int counter = 1;
+        while (counter <= number)
+        {
+            if (number % counter == 0)
+            {
+                lpDzielnikow += 1;
+            }
+            counter++;
+        }
+        if (lpDzielnikow == 2)
+            System.out.println("Liczba jest liczbą pierwszą.");
+        else
+            System.out.println("Liczba nie jest liczbą pierwszą.");
+        input.close();
+    }
+}
+```
+
+*Zadanie 17. *Napisz program wykorzystujący dwie pętle for, który wyświetli na konsoli następujący wzór dla parametru N wprowadzonego przez użytkownika.*
+
+```java
+public class Politechnika 
+{
+    public static void main(String[] args) 
+    { 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Wpisz liczbę naturalną: ");
+        int x = input.nextInt();
+        for (int i = 1 ; i <= x ; i++)
+        {
+            String dotLine = "";
+            for (int j = 1 ; j <= i ; j++)
+                dotLine+="*";
+            System.out.println(dotLine);
+        }
+        input.close();
+    }
+}
+```

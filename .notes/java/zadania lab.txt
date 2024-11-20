@@ -14,7 +14,7 @@ public class Politechnika
         System.out.println("Podaj nazwisko: ");
         nazwisko = input.next();
         login = (imie+"_"+nazwisko).toLowerCase();
-        System.out.println("Witaj "+login+" na kursie Prpgramowanie w języku JAVA.");
+        System.out.println("Witaj "+login+" na kursie Programowanie w języku JAVA.");
 	input.close();
     }  
 }

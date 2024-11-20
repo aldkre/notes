@@ -151,7 +151,7 @@ public class Politechnika
         Scanner input = new Scanner(System.in);
         System.out.println("Wpisz dowolną liczbę całkowitą trzycyfrową: ");
         int number = input.nextInt(); // bez sprawdzenia czy została wpisana liczba (int)
-        String numberAsText = String.valueOf(number);
+        String numberAsText = String.valueOf(Math.abs(number));
         if (numberAsText.length() == 3)
         {
             char[] numbers = numberAsText.toCharArray();
@@ -181,13 +181,14 @@ public class Politechnika
     { 
         Scanner input = new Scanner(System.in);
         System.out.println("Wpisz dowolną liczbę całkowitą trzycyfrową: ");
-        String text = input.next();
-        int n = text.length();
+        int number = input.nextInt();
+	String numberAsText = String.valueOf(Math.abs(number));
+        int n = numberAsText.length();
         if (n == 3)
         {
             try
             {
-                int x = Integer.parseInt(text);
+                int x = Integer.parseInt(numberAsText);
                 if (x % 2 == 0)
                 {
                     System.out.println("Wpisana liczba całkowita jest liczbą parzystą.");

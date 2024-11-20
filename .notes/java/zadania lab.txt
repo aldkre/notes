@@ -1,6 +1,4 @@
-***Część 1***
-
-***Zmienne, operatory i instrukcje warunkowe***
+***LAB 1***
 
 *Zadanie 1. Napisz program, który prosi użytkownika o wprowadzenie swojego imienia i nazwiska, a następnie wyświetlający w konsoli napis „Witaj imię_nazwisko na kursie Programowanie języku w JAVA."*
 

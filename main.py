@@ -25,7 +25,7 @@ if wybor == "Strona główna":
 elif wybor == "JAVA":
     folder = ".notes/java"
     st.header("JAVA")
-    typy_danych, pojecia, metody = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody"])
+    typy_danych, pojecia, metody, zadania = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody", "Zadanie - lab."])
 
     with typy_danych:
         typ_prymitywny, typ_referencyjny = st.columns(2)
@@ -46,6 +46,9 @@ elif wybor == "JAVA":
 
     with metody:
         st.caption(return_text(folder, file="metody.txt"))
+
+    with zadania:
+        st.caption(return_text(folder, file="zadania lab.txt"))
 
 elif wybor == "BAZY DANYCH":
     folder= ".notes/sql"

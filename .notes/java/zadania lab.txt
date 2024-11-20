@@ -181,31 +181,30 @@ public class Politechnika
     { 
         Scanner input = new Scanner(System.in);
         System.out.println("Wpisz dowolną liczbę całkowitą trzycyfrową: ");
-        int number = input.nextInt();
-	String numberAsText = String.valueOf(Math.abs(number));
-        int n = numberAsText.length();
-        if (n == 3)
+        try
         {
-            try
+            int number = input.nextInt(); // bez sprawdzenia czy została wpisana liczba (int)
+            String numberAsText = String.valueOf(Math.abs(number));
+            if (numberAsText.length() == 3)
             {
-                int x = Integer.parseInt(numberAsText);
-                if (x % 2 == 0)
+                char[] numbers = numberAsText.toCharArray();
+                if (numbers[1] % 2 == 0)
                 {
-                    System.out.println("Środkowa cyfra wprowadzonej liczby trzycyfrowej jest liczbą parzystą.");
+                    System.out.println("Środkowa cyfra liczby trzycyfrowej jest parzysta.");
                 }
                 else
                 {
-                    System.out.println("Środkowa cyfra wprowadzonej liczby trzycyfrowej jest liczbą nieparzystą.");
-                } 
+                    System.out.println("Środkowa cyfra liczby trzycyfrowej jest nieparzysta.");
+                }
             }
-            catch (Exception e)
+            else
             {
-                System.out.println("Wpisano wartość nieliczbową.");
+                System.out.println("Nie wpisano wartości trzycyfrowej.");
             }
         }
-        else
+        catch (Exception e)
         {
-            System.out.println("Nie wpisano wartości trzycyfrowej.");
+            System.out.println("Nie wpisano wartości liczbowej.");
         }
 	input.close();
     } 

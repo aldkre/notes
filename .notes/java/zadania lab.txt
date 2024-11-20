@@ -191,11 +191,11 @@ public class Politechnika
                 int x = Integer.parseInt(numberAsText);
                 if (x % 2 == 0)
                 {
-                    System.out.println("Wpisana liczba całkowita jest liczbą parzystą.");
+                    System.out.println("Środkowa cyfra wprowadzonej liczby trzycyfrowej jest liczbą parzystą.");
                 }
                 else
                 {
-                    System.out.println("Wpisana liczba całkowita jest liczbą nieparzystą.");
+                    System.out.println("Środkowa cyfra wprowadzonej liczby trzycyfrowej jest liczbą nieparzystą.");
                 } 
             }
             catch (Exception e)

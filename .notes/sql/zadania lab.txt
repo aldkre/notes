@@ -128,12 +128,47 @@ WHERE nr_kier IN
 )
 ORDER BY nazwa_kier
 
--- 3.15. Podać numery i nazwiska studentów kierunku INFORMATYKA, którzy z przedmiotu BAZY DANYCH otrzymali oceny wyższe od ocen każdego ze studentów kierunku ROBOTYKA z tego przedmiotu.   
+-- 3.15. Podać numery i nazwiska studentów kierunku INFORMATYKA, którzy z przedmiotu BAZY DANYCH otrzymali oceny wyższe od ocen każdego ze studentów kierunku ROBOTYKA z tego przedmiotu. 
+SELECT s.nr_stud, s.nazwisko
+FROM studenci s
+LEFT JOIN oceny o ON s.nr_stud = o.nr_stud
+LEFT JOIN kierunki k ON s.nr_kier = k.nr_kier
+LEFT JOIN przedmioty p ON o.nr_przedm = p.nr_przedm
+WHERE p.nazwa_przedm = 'BAZY DANYCH'
+AND UPPER(k.nazwa_kier) IN ('INFORMATYKA')
+AND o.ocena > 
+(
+	SELECT MAX(ocena) FROM oceny 
+	WHERE nr_przedm IN (SELECT nr_przedm FROM przedmioty WHERE nazwa_przedm = 'BAZY DANYCH')
+	AND nr_stud IN (SELECT nr_stud FROM studenci WHERE nr_kier = (SELECT nr_kier FROM kierunki WHERE nazwa_kier = 'ROBOTYKA'))
+)
+  
 -- 3.16. Podaj przedmioty realizowane przez największą liczbę pracowników. 
--- 3.17. Podać daty urodzenia i nazwiska najstarszych studentów na poszczególnych kierunkach (wykorzystaj zapytania skorelowane).   
+SELECT nazwa_przedm, COUNT(DISTINCT(nr_prac)) AS liczba_pracownikow
+FROM pracownicy pra, przedmioty prz
+WHERE prz.nr_odp_prac = pra.nr_prac
+GROUP BY nazwa_przedm ORDER BY liczba_pracownikow DESC
+
+-- 3.x16. Podaj przedmioty realizowane przez największą liczbę studentów. 
+SELECT nazwa_przedm FROM przedmioty WHERE nr_przedm IN
+(SELECT nr_przedm FROM 
+(SELECT nr_przedm, COUNT(DISTINCT(nr_stud)) FROM oceny GROUP BY nr_przedm HAVING COUNT(DISTINCT(nr_stud)) = 
+(SELECT MAX(counted) FROM (SELECT COUNT(DISTINCT(nr_stud)) AS counted FROM oceny GROUP BY nr_przedm)A))B)
+
+-- 3.17. Podać daty urodzenia i nazwiska najstarszych studentów na poszczególnych kierunkach (wykorzystaj zapytania skorelowane). 
+SELECT nr_kier, nazwisko, data_ur FROM studenci s1
+WHERE data_ur = 
+(SELECT MIN(data_ur) FROM studenci s2 WHERE s1.nr_kier = s2.nr_kier)
+  
 -- 3.18. Podać średnią wypłatę wszystkich pracowników będących kierownikami tematów (chodzi o wyświetlenie jednej kwoty jako średniej wszystkich kierowników).   
+SELECT ROUND(AVG(kwota),2) FROM wyplaty WHERE nr_prac IN (SELECT nr_prac_kt FROM tematy) --srednia wyplat
+SELECT ROUND(AVG(srednia),2) FROM -- srednia sredniej wyplaty
+(SELECT nr_prac, AVG(kwota) as srednia FROM wyplaty WHERE nr_prac IN (SELECT nr_prac_kt FROM tematy) GROUP BY nr_prac)A
 
 -- 4.1. Do tabeli zespoly dopisać jeszcze jeden wiersz, podając dowolne wartości dla wszystkich atrybutów. Sprawdzić efekt wykonanej operacji, wykonując na tabeli zapytanie SELECT. 
+INSERT INTO zespoly (nr_zesp, nazwa_zesp, nr_prac_kz, nr_inst) VALUES (12, 'TESTOWA GRUPA', 1, 1)
+SELECT * FROM zespoly
+
 -- 4.2. Do tabeli zespoly ponownie dopisać nowy wiersz, ale tym razem proszę uzupełnić tylko dane dotyczące numeru zespołu i numeru instytutu.  Efekt wykonanej operacji sprawdzić, wykonując zapytanie SELECT z warunkiem  …NAZWA_ZESP IS NULL...  Czy został wyświetlony rekord wprowadzony przed chwilą? Jeżeli nie, to zmodyfikuj zapytanie tak, aby rekord został wyświetlony. 
 -- 4.3. Zaktualizować wiersz wpisany w poleceniu 4.2, dodając (aktualizując) brakujące dane o numerze pracowniczym kierownika zespołu i nazwie zespołu. Przykładowo, jako numer pracowniczy kierownika zespołu można użyć wartości 10. Sprawdź poprawność aktualizacji odpowiednim poleceniem SELECT. 
 -- 4.4. Do tabeli przedmioty dodać nowy przedmiot na kierunku ROBOTYKA, którego nazwa brzmi STATYSTYKA. W związku z tym, że przedmiot ma zarówno formę wykładu, jak i ćwiczeń, należy dodać ten przedmiot jako 2 osobne wiersze – raz jako wykład (wartość atrybutu KOD_TPRZEDM to WYK), a raz jako ćwiczenia (wartość atrybutu KOD_TPRZEDM to CWC).  Dla wykładu, przedmiotem nadrzędnym powinien być wykład ANALIZA MATEMATYCZNA, a dla ćwiczeń – wykład z dodanej przed chwilą statystyki. Pracownikiem odpowiedzialnym za przedmiot – i za wykład i za ćwiczenia – powinien być kierownik zespołu nr 5. 

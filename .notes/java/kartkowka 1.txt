@@ -1,0 +1,184 @@
+***zadanie 1***
+
+
+**1.** Błąd przy tworzeniu tablicy; tworzenie tablicy dwuwymiarowej powinno być odpowiednio zdefiniowane
+```java
+int[][] nazwa_tablicy = new int[liczba_wierszy][liczba_kolumn];
+
+[
+ [0],
+ [0],
+ [0],
+ [0],
+ [0],
+ [0],
+ [0],
+ [0],
+ [0],
+ [0]
+]
+
+```
+Poprzednie zdefiniowane zmiennej (int numery) wskazywało na zamiar utworzenia zmiennej typu integer.
+
+
+**2.** Błąd z powodu braku klamry otwierającej przy konstruowaniu pętli while. W Javie klamry {} są używane do definiowania bloków kodu, takich jak ciało pętli, instrukcji warunkowych (if, else), metod i klas. Klamry są obowiązkowe, gdy blok kodu zawiera więcej niż jedną instrukcję. Dla pojedynczej instrukcji można je pominąć, ale zaleca się ich używanie dla czytelności kodu.
+
+**3.** Błąd przy deklarowaniu zmiennej typu String. String nie jest typem prymitywnym, jest klasą, która reprezentuje sekwencję znaków, stąd poprawna forma to String pisany wielką literą.
+
+**4.** jak w punkcie numer 3
+
+**5.** Błąd przy odwoływaniu się do pierwszego elementu każdego wiersza. Zdefiniowana tablica numery posiada dziesięć wierszy, a w każdym z nich został zdefiniowany 1 element. Przy odwoływaniu się do określonego elementu należy pamiętać, że wyliczanie rozpoczynamy od 0 do n-1 określonych elementów w danym zbiorze. Pierwszy element każdego wiersza będzie zatem posiadać liczbę porządkową (index) 0.
+```java
+String napis = String.valueOf(numery[i][1]);
+```
+odwołuje się do nieistniejącego elementu.
+
+**6.** jak w punkcie numer 4 (błąd typu out of bounds - spoza zakresu)
+
+***zadanie 2***
+
+**1.** Błąd przy tworzeniu nowego obiektu klasy Random() - brak nawiasów za nazwą klasy.
+
+**2.** Błąd przy określaniu warunku kontynuowania pętli for; określono, że działanie pętli ma nie zostać zaniechane dopóki zmienna i jest mniejsza bądź równa długości tablicy o nazwie numery. Długość tablicy numery, jak to zostało wcześniej określone przy tworzeniu obiektu new int[4], wynosi 4. Podczas odwoływania się do elementu równego długości tablicy numery[4] wystąpi błąd typu out of bounds.
+
+**3.** Błąd spowodowany nadmiarowym użyciem ;
+
+**4.** Błąd z powodu braku klamry otwierającej przy konstruowaniu pętli for.
+
+***zadanie 3***
+
+**1.** Błąd z powodu braku new przy tworzeniu nowego obiektu klasy Scanner.
+
+**2.** Błąd z powodu braku klamry otwierającej przy konstruowaniu switch.
+
+***zadanie 4***
+
+**1.** Błąd spowodowany brakiem : w konstrukcji switch w bloku default.
+
+**2.** Błąd typu out of bounds może wystąpić jeśli użytkownik wpisze ciąg znaków o długości 1. W takim przypadku wyraz.charAt(1) będzie się odwoływać do nieistniejącego elementu.
+
+
+### 📌WAŻNE
+
+1) klamry...
+2) średniki...
+3) out of bounds
+4) new przy tworzeniu tablic, obiektów klas (wyjątek String)
+5) sposób zapisu:
+```java
+//zmienne
+int liczba = 10;
+double liczbaZmiennoprzecinkowa = 5.5;
+String tekst = "Hello, World!";
+
+//tablice
+int[] tablica = {1, 2, 3, 4, 5};
+String[] tablicaTekstow = {"A", "B", "C"};
+
+//listy
+List<Integer> lista = new ArrayList<>();
+lista.add(1);
+lista.add(2);
+lista.add(3);
+
+//mapy
+Map<String, Integer> mapa = new HashMap<>();
+mapa.put("klucz1", 1);
+mapa.put("klucz2", 2);
+
+//klasy
+public class Osoba {
+    private String imie;
+    private int wiek;
+
+    public Osoba(String imie, int wiek) {
+        this.imie = imie;
+        this.wiek = wiek;
+    }
+
+    public String getImie() {
+        return imie;
+    }
+
+    public int getWiek() {
+        return wiek;
+    }
+}
+
+//metody
+public class Kalkulator {
+    public int dodaj(int a, int b) {
+        return a + b;
+    }
+
+    public int odejmij(int a, int b) {
+        return a - b;
+    }
+}
+
+// pętle
+for (int i = 0; i < 10; i++) {
+    System.out.println(i);
+}
+
+int j = 0;
+while (j < 10) {
+    System.out.println(j);
+    j++;
+}
+
+//instrukcje warunkowe
+if (liczba > 5) {
+    System.out.println("Liczba jest większa niż 5");
+} else {
+    System.out.println("Liczba jest mniejsza lub równa 5");
+}
+```
+
+6) przydatne metody:
+W Javie metoda **valueOf** jest statyczną metodą dostępną w wielu klasach, takich jak Integer, Double, Boolean, String, itp. Metoda ta jest używana do konwersji różnych typów danych na obiekty odpowiednich klas. 
+```java
+Integer intValue = Integer.valueOf(42);;
+Double doubleValue = Double.valueOf(42.0);
+Boolean booleanValue = Boolean.valueOf(true);
+String stringValue = String.valueOf(42);
+```
+Metoda valueOf jest szczególnie przydatna, gdy potrzebujesz przekonwertować typy prymitywne na obiekty ich odpowiednich klas opakowujących (wrapper classes). Dzięki temu możesz korzystać z metod dostępnych dla tych klas.
+
+W Javie metody **parse** są używane do konwersji ciągów znaków (String) na typy prymitywne lub obiekty odpowiednich klas opakowujących.
+```java
+int liczba = Integer.parseInt("123");
+double liczbaZmiennoprzecinkowa = Double.parseDouble("123.45");
+boolean wartoscLogiczna = Boolean.parseBoolean("true");
+long liczbaDlugie = Long.parseLong("123456789");
+float liczbaZmiennoprzecinkowa = Float.parseFloat("123.45");
+```
+Metody parse są szczególnie przydatne, gdy potrzebujesz przekonwertować dane wejściowe w postaci tekstowej na odpowiednie typy danych do dalszego przetwarzania.
+
+Metoda **getNumericValue** w Javie jest częścią klasy Character i służy do konwersji znaku na jego wartość numeryczną.
+```java
+public class Main {
+    public static void main(String[] args) {
+        char ch = '5';
+        int numericValue = Character.getNumericValue(ch);
+        System.out.println("Wartość numeryczna znaku '" + ch + "' to: " + numericValue);
+    }
+}
+```
+W powyższym przykładzie znak '5' jest konwertowany na wartość numeryczną 5 za pomocą metody Character.getNumericValue. Metoda ta może być używana do konwersji znaków reprezentujących cyfry na ich wartości numeryczne.
+
+Metoda **charAt** w Javie jest częścią klasy String i służy do pobierania znaku znajdującego się na określonej pozycji w ciągu znaków.
+```java
+public class Main {
+    public static void main(String[] args) {
+        String tekst = "Hello, World!";
+        char znak = tekst.charAt(7);
+        System.out.println("Znak na pozycji 7: " + znak);
+    }
+}
+```
+W powyższym przykładzie metoda charAt pobiera znak znajdujący się na pozycji 7 w ciągu znaków tekst, który jest literą 'W'. Pamiętaj, że indeksowanie w Javie zaczyna się od zera, więc pierwszy znak ma indeks 0.
+
+
+# POWODZENIA

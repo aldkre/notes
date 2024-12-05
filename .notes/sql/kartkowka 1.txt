@@ -1,0 +1,58 @@
+***zadanie 1***
+
+Wypisać nazwy przedmiotów prowadzonych na kierunku o numerze 1, numery ich przedmiotów nadrzędnych oraz numery pracownicze osób, którzy są za nie odpowiedzialni.
+
+```sql
+SELECT DISTINCT nazwa_przedm, nr_przedm_nadrz, nr_odp_prac
+FROM przedmioty
+WHERE nr_kier = 1
+ORDER BY nr_odp_prac;
+```
+
+***zadanie 2***
+
+Wypisać nazwy przedmiotów oraz numery, imiona i nazwiska studentów, którzy na egzaminie (zal_egz E) z tego przedmiotu dostali w pierwszym terminie ocenę bardzo dobrą.
+
+```sql
+SELECT s.NAZWISKO, p.nazwa_przedm, o.nr_przedm -- , o.nr_stud, o.ocena, o.termin, o.ZAL_EGZ
+FROM oceny o, przedmioty p, studenci s
+WHERE o.NR_PRZEDM = p.NR_PRZEDM AND o.NR_STUD = s.NR_STUD
+AND (o.ocena = 5 AND o.termin = 1 AND o.zal_egz = 'E')
+ORDER BY s.nazwisko
+```
+
+```sql
+SELECT nazwisko, nr_stud
+FROM studenci
+WHERE nr_stud IN 
+(SELECT nr_stud FROM oceny WHERE ocena = 5 AND termin = 1 AND zal_egz = 'E')
+ORDER BY nazwisko
+```
+
+***zadanie 3***
+
+Podać nazwy przedmiotów, w których liczba ocen niedostatecznych jest większa niż w przedmiocie BAZY DANYCH
+
+```sql
+SELECT nazwa_przedm
+FROM przedmioty
+WHERE nr_przedm in
+(SELECT nr_przedm FROM oceny WHERE ocena < 3 GROUP BY nr_przedm HAVING count(ocena) >
+(SELECT count(ocena) FROM oceny WHERE ocena < 3 AND nr_przedm in
+(SELECT nr_przedm FROM przedmioty WHERE nazwa_przedm = 'BAZY DANYCH')
+)
+)
+```
+
+* zestawienie powinno zawierać nazwę przedmiotu i liczbę studentów
+```sql
+SELECT p.nazwa_przedm, o.ocena, COUNT(s.nr_stud), COUNT(ocena)
+FROM oceny o, przedmioty p, studenci s
+WHERE o.nr_przedm = p.nr_przedm AND o.nr_stud=s.nr_stud AND ocena < 3
+GROUP BY p.nazwa_przedm, o.ocena
+HAVING COUNT(ocena) > 
+(SELECT COUNT(ocena)
+FROM oceny o, przedmioty p, studenci s
+WHERE o.nr_przedm = p.nr_przedm AND o.nr_stud=s.nr_stud AND ocena < 3 AND nazwa_przedm = 'BAZY DANYCH'
+GROUP BY p.nazwa_przedm, o.ocena)
+```

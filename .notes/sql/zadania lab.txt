@@ -1,3 +1,5 @@
+***LAB 1***
+
 Używany system zarządzania relacyjnymi bazami danych: **Postgres**
 
 
@@ -184,3 +186,171 @@ SELECT * FROM zespoly
 -- 4.13. Wykonać zapytanie, operujące na utworzonej perspektywie, pokazujące dane wszystkich studentów. 
 -- 4.14. Za pośrednictwem utworzonej perspektywy (UPDATE nazwa_perspektywy SET …) zmienić ocenę studenta o numerze 2 w przedmiocie BAZY DANYCH na 5. 
 ```
+
+***LAB 2***
+
+*Zadanie 1.
+Właściciel biura podróży zgłosił zapotrzebowanie na stworzenie aplikacji obsługującej jego biuro. W bazie danych tej aplikacji powinny znaleźć się informacje dotyczące wycieczek prowadzonych przez to biuro – opis trasy oraz dane pilota wycieczki. Koszt wycieczki i liczba dostępnych miejsc zależna jest od terminu, w którym wycieczka się odbywa. Wycieczki na danej trasie organizowane są przy pomocy różnych środków lokomocji np. dojazd własny, autokar, samolot. Ponadto, należy prowadzić ewidencję wszystkich klientów korzystających z usług biura z założeniem, że pilot jednej wycieczki może być uczestnikiem innej. Proszę przyjąć, że jeden klient może być uczestnikiem wielu wycieczek.*
+
+#### elementy składowe: 
+* wycieczki (opis trasy, pilot wycieczki, koszt, dostępne miejsca, termin, środek lokomocji)
+* klienci
+
+**tabela  Wycieczki**
+// 
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* nazwa (varchar NOT NULL)
+* cena (decimal CHECK > 0)
+* termin_wyjazdu (date)
+* termin przyjazdu (date)
+* nr_ewidencyjny (Piloci klucz obcy)
+* nr_ewidencyjny (Srodki_lokomocji klucz obcy)
+* liczba_miejsc (int CHECK > 0)
+* opis_trasy (text)
+
+**tabela  Piloci**
+// 
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* imie (varchar NOT NULL)
+* nazwisko (varchar NOT NULL)
+
+**tabela  Klienci**
+// 
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* imie (varchar NOT NULL)
+* nazwisko (varchar NOT NULL)
+
+**tabela  Srodki_lokomocji**
+// 
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* nazwa (varchar NOT NULL)
+
+**tabela  Koszty**
+// 
+* nr_faktury (varchar NOT NULL) 
+* nr_ewidencyjny (Wycieczki klucz obcy)
+* kwota (decimal CHECK > 0 && <= suma kwoty danej faktury)
+
+**tabela  Składy**
+// 
+* nr_ewidencyjny (Wycieczki klucz obcy)
+* nr_ewidencyjny (Klienci klucz obcy)
+(przed próbą wpisania kolejnego klienta, sprawdzenie czy zostały wolne miejsca w danej wycieczce)
+
+*Zadanie 2.
+Firma “Ryzyk”, będąca pośrednikiem ubezpieczeniowym, zamówiła projekt bazy przechowującej dane o jej działalności. Firma poprzez współpracujących z nią agentów ubezpieczeniowych sprzedaje klientom produkty ubezpieczeniowe (PU) oferowane przez towarzystwa ubezpieczeniowe (TU). Dany PU jest związany tylko z jednym TU. PU sprzedany klientowi nazywany jest polisą. Za daną polisę klient może zapłacić jedną lub wiele składek. Dla każdego PU należy przechować jego kod i opis. Agenci mają uprawnienia do sprzedaży określonych PU. Polisa poza danymi klienta i sprzedającego ją agenta zawiera nr, wysokość ubezpieczenia i datę wystawienia. Dla składek płaconych przez klienta należy przechować nr składki, kwotę wpłaty i datę wpłaty. Dla TU należy przechować kod i nazwę, dla agenta jego kod, nazwisko i adres.*
+
+#### elementy składowe: 
+* produkty ubezpieczeniowe, kod, opis, towarzystwa ubezpieczeniowe w tym kod i nazwa, 
+* polisy, dane klienta, agent, wysokość ubezpieczenia, data wystawienia, liczba rat, 
+* agenci, produkt ubezpieczeniowy do którego jest uprawniony, kod, nazwisko, adres
+* klienci
+* składki klienta, kwota i data wpłaty
+
+**tabela  Produkty_ubezpieczeniowe**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* kod (varchar NOT NULL)
+* nazwa (varchar NOT NULL)
+* opis (varchar)
+* nr_ewidencyjny (Towarzystwa_ubezpieczeniowe klucz obcy)
+
+**tabela  Towarzystwa_ubezpieczeniowe**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* kod (varchar NOT NULL)
+* nazwa (varchar NOT NULL)
+
+**tabela  Agenci**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* kod (varchar NOT NULL)
+* imie (varchar NOT NULL)
+* nazwisko (varchar NOT NULL)
+* adres (varchar NOT NULL)
+
+**tabela  Agenci_uprawnieni**
+//
+* nr_ewidencyjny (Agenci klucz obcy)
+* nr_ewidencyjny (Produkty_ubezpieczeniowy klucz obcy)
+
+**tabela  Klienci**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* imie (varchar NOT NULL)
+* nazwisko (varchar NOT NULL)
+* adres (varchar)
+
+**tabela  Polisy**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* nr_ewidencyjny (Klienci klucz obcy)
+* nr_ewidencyjny (Agenci klucz obcy)
+* data_wystawienia (date NOT NULL)
+* kwota (decimal NOT NULL)
+
+**tabela  Składki**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* nr_ewidencyjny (Polisy klucz obcy)
+* data_wpłaty (date NOT NULL)
+* kwota (decimal NOT NULL)
+
+
+*Zadanie 3.
+Warsztat samochodowy zamówił projekt bazy danych mającej usprawnić jego działalność w zakresie wykonywanych napraw samochodów. W bazie należy przechować dane klienta (nazwisko, adres, pesel), oddawanego do naprawy samochodu (marka, model, nr silnika, rejestracja) oraz informacje o wykonanej naprawie. Na naprawę może składać się wiele różnych czynności (nazwa, opis, czas wykonania) wykonywanych przez różnych pracowników. Niektóre czynności wykonywane są przez kilku pracowników. Wskazany pracownik jest odpowiedzialny za przeprowadzenie naprawy. Dla naprawy przechować kwotę zapłaty, datę oddania samochodu do naprawy i datę odbioru samochodu. Dla pracownika przechować pesel, nazwisko, adres i datę zatrudnienia.*
+
+#### elementy składowe: 
+* klienci w tym nazwisko, adres, pesel
+* samochody w tym właściciel, marka, model, nr silnika, rejestracja
+* naprawy w tym nazwa, czas wykonania, opis, samochód, pracownik odpowiedzialny, pracownik wykonujący, data oddania, data odbioru, kwota zapłaty
+* pracownik w tym pesel, nazwisko, adres, data zatrudnienia
+
+**tabela  Klienci**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* imie (varchar NOT NULL)
+* nazwisko (varchar NOT NULL)
+* adres (varchar)
+* pesel (varchar)
+
+**tabela  Pracownicy**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* imie (varchar NOT NULL)
+* nazwisko (varchar NOT NULL)
+* adres (varchar NOT NULL)
+* pesel (varchar NOT NULL)
+* data_zatrudnienia (date NOT NULL)
+
+**tabela  Samochody**
+//
+* nr_rejestracyjny (klucz główny varchar)
+* marka (varchar NOT NULL)
+* model (varchar NOT NULL)
+* nr_silnika (varchar)
+
+**tabela  Zgłoszenia_napraw**
+//
+* nr_ewidencyjny (klucz główny autouzupełnienie int)
+* nr_rejestracyjny (Samochody klucz obcy)
+* nr_ewidencyjny (Klienci klucz obcy)
+* nr_ewidencyjny (Pracownicy klucz obcy) pracownik odpowiedzialny
+* data_oddania (date NOT NULL)
+* data_odbioru (date)
+* kwota (decimal CHECK > 0)
+
+**tabela  Naprawy**
+//
+* nr_ewidencyjny (Zgłoszenia_napraw klucz obcy)
+* nr_ewidencyjny (Pracownicy klucz obcy) pracownik wykonujący
+* czas_wykonania (date)
+* opis (text)
+
+
+
+*Zadanie 4.
+Spółdzielnia lekarska „Szaman” zamówiła projekt bazy danych mającej usprawnić jej działalność. Baza ma przechowywać dane o wizytach pacjentów – lekarza, datę wizyty, rozpoznaną jednostkę chorobową (może być kilka) oraz zaordynowane medykamenty wraz z dawkami (jak często i ile). Dla pacjenta przechować: nazwisko, imię i adres; dla lekarza: numer, imię i nazwisko; dla lekarstwa: kod i nazwę; dla jednostki chorobowej: numer i krótki opis. Dla każdego pacjenta należy zapamiętać też dane lekarza rodzinnego, przy założeniu, że pacjent ma wizyty nie tylko u przypisanego lekarza.*
+
+*Zadanie 5.
+Sieć telewizyjna zamówiła projekt bazy danych przechowującej informacje o realizowanych przez nią programach 'talkshow'. Dla programu należy przechować jego identyfikator, nazwę i czas trwania. 'Talkshow' jest przygotowywany i prowadzony przez wiele osób, z których każda wykonuje określone funkcje. Dla funkcji zapamiętać jej nazwę i widełki stawki godzinowej. W bazie należy przechować stawkę godzinową i liczbę godzin, które dana osoba przepracowała przy danym programie pełniąc podaną funkcję. Jedna osoba przy tym samym programie może spełniać wiele funkcji. Na nagrania programów są zapraszani goście. Do wygenerowania zaproszenia potrzebne są: nazwisko, imię i adres zapraszanej osoby. Należy zapisać w bazie kto został zaproszony na dany program. Wyprodukowany program może być emitowany kilkukrotnie – należy zapamiętać nazwę kanału oraz datę i godzinę emisji.*

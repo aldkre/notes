@@ -1,8 +1,9 @@
 import streamlit as st
+from PIL.Image import Image
 
 st.set_page_config(
     page_title="Java notes",
-    page_icon="colapsed",
+    page_icon="🐦",
     initial_sidebar_state="collapsed",
     menu_items={}
 )
@@ -25,7 +26,7 @@ if wybor == "Strona główna":
 elif wybor == "JAVA":
     folder = ".notes/java"
     st.header("JAVA")
-    typy_danych, pojecia, metody, zadania = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody", "Zadanie - lab."])
+    typy_danych, pojecia, metody, zadania, wejsciowki = st.tabs(["Typy danych", "Podstawowe pojęcia", "Metody", "Zadanie - lab.", "Wejściówki"])
 
     with typy_danych:
         typ_prymitywny, typ_referencyjny = st.columns(2)
@@ -49,6 +50,11 @@ elif wybor == "JAVA":
 
     with zadania:
         st.caption(return_text(folder, file="zadania lab.txt"))
+
+    with wejsciowki:
+        url = 'https://github.com/aldkre/notes/blob/d369b0fcd76eda5cce6277850b9457d00ae1c1c4/.notes/java/k1_solved.jpg'
+        st.page_link(url, label="Rozwiązanie", icon="🐾")
+        st.caption(return_text(folder, file="kartkowka 1.txt"))
 
 elif wybor == "BAZY DANYCH":
     folder= ".notes/sql"

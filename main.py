@@ -59,7 +59,7 @@ elif wybor == "JAVA":
 elif wybor == "BAZY DANYCH":
     folder= ".notes/sql"
 
-    typy_baz, pojecia, operatory, operacje, zadania = st.tabs(["Typy baz danych", "Podstawowe pojęcia", "Operatory", "Rodzaje operacji", "Zadania - lab."])
+    typy_baz, pojecia, operatory, operacje, zadania, wejsciowki = st.tabs(["Typy baz danych", "Podstawowe pojęcia", "Operatory", "Rodzaje operacji", "Zadania - lab.", "Wejściówki"])
     with typy_baz:
         st.caption(return_text(folder, file="typy_baz_danych.txt"))
 
@@ -74,6 +74,9 @@ elif wybor == "BAZY DANYCH":
 
     with zadania:
         st.caption(return_text(folder, file="zadania lab.txt"))
+
+    with wejsciowki:
+        st.caption(return_text(folder, file="kartkowka 1.txt"))
 
 elif wybor == "ZPI":
     pass

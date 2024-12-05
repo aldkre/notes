@@ -16,7 +16,7 @@ Wypisać nazwy przedmiotów oraz numery, imiona i nazwiska studentów, którzy n
 ```sql
 SELECT s.NAZWISKO, p.nazwa_przedm, o.nr_przedm -- , o.nr_stud, o.ocena, o.termin, o.ZAL_EGZ
 FROM oceny o, przedmioty p, studenci s
-WHERE o.NR_PRZEDM = p.NR_PRZEDM AND o.NR_STUD = s.NR_STUD
+WHERE o.nr_przedm = p.nr_przedm AND o.nr_stud = s.nr_stud
 AND (o.ocena = 5 AND o.termin = 1 AND o.zal_egz = 'E')
 ORDER BY s.nazwisko
 ```

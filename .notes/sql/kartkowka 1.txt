@@ -32,27 +32,39 @@ ORDER BY nazwisko
 ***zadanie 3***
 
 Podać nazwy przedmiotów, w których liczba ocen niedostatecznych jest większa niż w przedmiocie BAZY DANYCH
+*zestawienie powinno zawierać nazwę przedmiotu i liczbę studentów
 
 ```sql
-SELECT nazwa_przedm
-FROM przedmioty
-WHERE nr_przedm in
+SELECT p.nazwa_przedm, count(o.nr_stud)
+FROM przedmioty p, oceny o
+WHERE p.nr_przedm=o.nr_przedm
+AND o.nr_przedm in
 (SELECT nr_przedm FROM oceny WHERE ocena < 3 GROUP BY nr_przedm HAVING count(ocena) >
 (SELECT count(ocena) FROM oceny WHERE ocena < 3 AND nr_przedm in
 (SELECT nr_przedm FROM przedmioty WHERE nazwa_przedm = 'BAZY DANYCH')
 )
 )
+GROUP BY p.nazwa_przedm, o.ocena
+HAVING o.ocena < 3
 ```
 
-* zestawienie powinno zawierać nazwę przedmiotu i liczbę studentów
 ```sql
-SELECT p.nazwa_przedm, o.ocena, COUNT(s.nr_stud), COUNT(ocena)
-FROM oceny o, przedmioty p, studenci s
-WHERE o.nr_przedm = p.nr_przedm AND o.nr_stud=s.nr_stud AND ocena < 3
+SELECT p.nazwa_przedm, o.ocena, COUNT(o.nr_stud)
+FROM oceny o, przedmioty p
+WHERE o.nr_przedm = p.nr_przedm AND ocena < 3
 GROUP BY p.nazwa_przedm, o.ocena
 HAVING COUNT(ocena) > 
 (SELECT COUNT(ocena)
 FROM oceny o, przedmioty p, studenci s
 WHERE o.nr_przedm = p.nr_przedm AND o.nr_stud=s.nr_stud AND ocena < 3 AND nazwa_przedm = 'BAZY DANYCH'
 GROUP BY p.nazwa_przedm, o.ocena)
+```
+
+```sql
+SELECT p.nazwa_przedm, COUNT(ocena) FROM oceny o, przedmioty p
+WHERE p.NR_PRZEDM=o.nr_przedm AND ocena < 3
+GROUP BY p.nazwa_przedm
+HAVING COUNT(ocena) >
+(SELECT COUNT(ocena) FROM oceny WHERE OCENA < 3 AND nr_przedm IN
+(SELECT DISTINCT(nr_przedm) FROM przedmioty WHERE nazwa_przedm = 'BAZY DANYCH'))
 ```

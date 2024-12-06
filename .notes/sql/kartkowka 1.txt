@@ -68,3 +68,52 @@ HAVING COUNT(ocena) >
 (SELECT COUNT(ocena) FROM oceny WHERE OCENA < 3 AND nr_przedm IN
 (SELECT DISTINCT(nr_przedm) FROM przedmioty WHERE nazwa_przedm = 'BAZY DANYCH'))
 ```
+
+----------------------------------
+
+```sql
+-- wyszukuje nazwiska studentów, którzy studiują na tym samym kierunku co student o nazwisku MARCZAK
+select s2.nazwisko from studenci s1, studenci s2
+where s1.nazwisko = 'MARCZAK' AND s1.nr_kier = s2.nr_kier
+
+select nazwisko from studenci where nr_kier =
+(select nr_kier from studenci where nazwisko = 'MARCZAK')
+
+-- wyszukuje numer sali, która ma taki sam rozmar co sala numer 7
+select s2.nr_sali from sale s1, sale s2
+where s1.nr_sali = 7 and s1.rozm_sali = s2.rozm_sali
+
+select nr_sali from sale where rozm_sali =
+(select rozm_sali from sale where nr_sali = 7)
+
+-- wyszukuje wszystkie zespoły, które mają ten sam numer instytutu co zespół OPROGRAMOWANIE
+select z2.nazwa_zesp from zespoly z1, zespoly z2
+where z1.nazwa_zesp = 'OPROGRAMOWANIE' and z1.nr_inst = z2.nr_inst
+
+select nazwa_zesp from zespoly where nr_inst =
+(select nr_inst from zespoly where nazwa_zesp = 'OPROGRAMOWANIE')
+
+-- wyszukuje nazwiska pracowników starszych niż pracownik SZCZERBIEC
+select p2.nazwisko from pracownicy p1, pracownicy p2
+where p1.nazwisko = 'SZCZERBIEC' and p2.data_ur < p1.data_ur
+
+select nazwisko from pracownicy where data_ur <
+(select DISTINCT data_ur from pracownicy where nazwisko = 'SZCZERBIEC')
+
+-- znaleźć nazwiska najstarszych uczniów na kierunku
+select s2.nazwisko, s2.data_ur, s2.nr_kier from studenci s2
+where data_ur = 
+(select min(data_ur) from studenci s1 where s1.nr_kier = s2.nr_kier)
+order by nr_kier
+
+-- znalezc nazwiska najwcześniej zdawających studentów na każdym przedmiocie
+select s.nazwisko, s.nr_stud, o.nr_przedm, o.data_zal from oceny o, studenci s
+where o.nr_stud = s.nr_stud and data_zal =
+(select min(data_zal) from oceny o2 where o2.nr_przedm = o.nr_przedm)
+order by o.nr_przedm
+
+-- znaleźć nazwiska studentów, którzy z danego przedmiotu otrzymali oceny niższe niż średnia ocen tego przedmiotu
+select s.nazwisko, o2.nr_stud, o2.nr_przedm, o2.ocena from oceny o2, studenci s
+where o2.nr_stud = s.nr_stud and ocena <
+(select avg(ocena) from oceny o1 where o1.nr_przedm = o2.nr_przedm)
+```

@@ -119,6 +119,14 @@ WHERE nr_stud IN
 )
 ORDER BY nazwisko
 
+select s.nazwisko, avg(ocena) from oceny o, studenci s
+where o.nr_stud=s.nr_stud
+group by s.nazwisko
+having avg(ocena) >
+(select avg(ocena) from oceny where nr_stud =
+(select nr_stud from studenci where nazwisko = 'WALCZAK'))
+ORDER BY s.nazwisko
+
 -- 3.14. Podać nazwy kierunków, na których studiuje więcej studentów niż na kierunku ELEKTRONIKA MED. 
 SELECT DISTINCT nazwa_kier
 FROM kierunki
@@ -129,6 +137,13 @@ WHERE nr_kier IN
 )
 )
 ORDER BY nazwa_kier
+
+select k.nazwa_kier, count(distinct(nr_stud)) from studenci s, kierunki k
+where s.nr_kier=k.nr_kier
+group by k.nazwa_kier
+having count(distinct(nr_stud)) >
+(select count(distinct(nr_stud)) from studenci where nr_kier =
+(select nr_kier from kierunki where nazwa_kier = 'ELEKTRONIKA MED'))
 
 -- 3.15. Podać numery i nazwiska studentów kierunku INFORMATYKA, którzy z przedmiotu BAZY DANYCH otrzymali oceny wyższe od ocen każdego ze studentów kierunku ROBOTYKA z tego przedmiotu. 
 SELECT s.nr_stud, s.nazwisko
@@ -144,12 +159,39 @@ AND o.ocena >
 	WHERE nr_przedm IN (SELECT nr_przedm FROM przedmioty WHERE nazwa_przedm = 'BAZY DANYCH')
 	AND nr_stud IN (SELECT nr_stud FROM studenci WHERE nr_kier = (SELECT nr_kier FROM kierunki WHERE nazwa_kier = 'ROBOTYKA'))
 )
+
+select distinct(s.nazwisko) from studenci s, oceny o, kierunki k
+where o.nr_stud=s.nr_stud and s.nr_kier=k.nr_kier
+and nr_przedm = any
+(select nr_przedm from przedmioty where nazwa_przedm = 'BAZY DANYCH')
+and k.nr_kier =
+(select nr_kier from kierunki where nazwa_kier = 'INFORMATYKA')
+and ocena > All
+((
+select ocena from oceny where 
+nr_stud in (select nr_stud from studenci where nr_kier = (select nr_kier from kierunki where nazwa_kier = 'ROBOTYKA')
+and 
+nr_przedm in (select nr_przedm from przedmioty where nazwa_przedm = 'BAZY DANYCH')
+)GROUP BY ocena))
   
 -- 3.16. Podaj przedmioty realizowane przez największą liczbę pracowników. 
 SELECT nazwa_przedm, COUNT(DISTINCT(nr_prac)) AS liczba_pracownikow
 FROM pracownicy pra, przedmioty prz
 WHERE prz.nr_odp_prac = pra.nr_prac
 GROUP BY nazwa_przedm ORDER BY liczba_pracownikow DESC
+
+select nazwa_przedm from
+(
+select p.nazwa_przedm, count(distinct(r.nr_prac)) AS liczba_prac from rozklady r, przedmioty p
+where p.nr_przedm=r.nr_przedm
+group by p.nazwa_przedm
+)a
+where liczba_prac =
+(select max(liczba_prac) from
+(select p.nazwa_przedm, count(distinct(r.nr_prac)) AS liczba_prac from rozklady r, przedmioty p
+where p.nr_przedm=r.nr_przedm
+group by p.nazwa_przedm
+)a)
 
 -- 3.x16. Podaj przedmioty realizowane przez największą liczbę studentów. 
 SELECT nazwa_przedm FROM przedmioty WHERE nr_przedm IN
@@ -161,6 +203,11 @@ SELECT nazwa_przedm FROM przedmioty WHERE nr_przedm IN
 SELECT nr_kier, nazwisko, data_ur FROM studenci s1
 WHERE data_ur = 
 (SELECT MIN(data_ur) FROM studenci s2 WHERE s1.nr_kier = s2.nr_kier)
+
+select k.nazwa_kier, s.NAZWISKO, s.data_ur from studenci s, kierunki k
+where k.nr_kier=s.nr_kier and data_ur =
+(select min(data_ur) from studenci s2 where s2.nr_kier=s.nr_kier)
+order by k.nazwa_kier
   
 -- 3.18. Podać średnią wypłatę wszystkich pracowników będących kierownikami tematów (chodzi o wyświetlenie jednej kwoty jako średniej wszystkich kierowników).   
 SELECT ROUND(AVG(kwota),2) FROM wyplaty WHERE nr_prac IN (SELECT nr_prac_kt FROM tematy) --srednia wyplat

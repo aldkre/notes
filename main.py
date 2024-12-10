@@ -49,7 +49,11 @@ elif wybor == "JAVA":
         st.caption(return_text(folder, file="metody.txt"))
 
     with zadania:
-        st.caption(return_text(folder, file="zadania lab.txt"))
+        lab1, lab2 = st.tabs(["Lab_1", "Lab_2"])
+        with lab1:
+            st.caption(return_text(folder, file="zadania lab.txt"))
+        with lab2:
+            st.caption(return_text(folder, file="zadania lab2.txt"))
 
     with wejsciowki:
         url = 'https://github.com/aldkre/notes/blob/d369b0fcd76eda5cce6277850b9457d00ae1c1c4/.notes/java/k1_solved.jpg'

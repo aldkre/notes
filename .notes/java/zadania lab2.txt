@@ -1,0 +1,562 @@
+***LAB 2***
+
+*Zadania 2-21"*
+
+```java
+import java.util.*;
+
+public class Tasks
+{
+    static Scanner input = new Scanner(System.in);
+    static Random rnt = new Random();
+
+
+
+    public static void task2()
+    {
+        System.out.println("Losowanie liczby z zakresu od 1 do 10.");
+        int x = rnt.nextInt(10)+1;
+        String text = x%2==0 ? "Parzysta - sukces." : "Nieparzysta - porażka.";
+        System.out.println("Wynik: "+text);
+    }
+
+    public static void task3()
+    {
+        System.out.println("Rzut monetą.");
+        int x = rnt.nextInt(2)+1;
+        String text = x==1 ? "Reszka - sukces." : "Orzeł - porażka.";
+        System.out.println("Wynik: "+text);
+    }
+
+    public static void task4()
+    {
+        System.out.println("10 krotny rzut monetą.");
+        int counter10 = 0;
+        do {
+            int x = rnt.nextInt(2) + 1;
+            String text = x == 1 ? "Reszka - sukces." : "Orzeł - porażka.";
+            counter10++;
+            System.out.printf("Próba %d %s\n", counter10, text);
+
+        } while (counter10 < 10);
+    }
+
+    public static void task5 ()
+    {
+        System.out.println("Rzut dwoma 20-sciennymi kostkami "+"⚀.");
+        System.out.println("Przyjęto, że na każdej z 20 scian kostki są numery niepowtarzające się z przedziału od 1 do 20.");
+        int suma_oczek = 0;
+        for (int i = 0; i < 2; i++)
+        {
+            int x = rnt.nextInt(20) + 1;
+            System.out.println("Wypadło: " + x);
+            suma_oczek += x;
+        }
+        String result = suma_oczek % 3 == 0 ? "podzielna przez 3 - sukces." : "niepodzielna przez 3 - porażka.";
+        System.out.println("Suma oczek jest "+result);
+    }
+
+    public static void task6()
+    {
+        System.out.println("Wyciąganie 2 kart z talii kart "+"\uD83C\uDCA0.");
+        int[] choosen = new int[2];
+        for (int i = 0; i < 2; i++)
+        {
+            int x = rnt.nextInt(52) + 1;
+            System.out.println("Wylosowano kartę numer: "+x);
+            choosen[i] = x;
+        }
+        String result = choosen[0] == choosen[1] ? "Wylosowano dwie takie same karty - sukces." : "Wylosowano różne karty - porażka.";
+        System.out.println(result);
+    }
+
+    public static void task7()
+    {
+        System.out.println("Komputer pomyslał liczbę z zakresu od 1 do 10. Zgadnij jaką. ");
+        int x = rnt.nextInt(10)+1;
+        int shot = 0;
+        int picked;
+
+        do
+        {
+            picked = input.nextInt();
+            shot++;
+
+            if (picked>x)
+                System.out.println("Liczba jest mniejsza.");
+            else if (picked <x)
+                System.out.println("Liczna jest większa.");
+
+        } while (picked!=x);
+
+        String result = shot == 1 ? "Mistrz!" : "Bingo!";
+        System.out.println(result);
+        System.out.println("Udało się odgadnąć liczbę przy próbie numer "+shot);
+    }
+
+    public static void task8()
+    {
+        System.out.println("Pobieranie daty w formacie DD.MM.RRRR oraz konwersji na liczby składowe oraz ich sumę.");
+
+        String dateAsText;
+        char[] dateAsArray;
+
+        try {
+            do {
+                System.out.println("Podaj datę w odpowiednim formacie: ");
+                dateAsText = input.nextLine();
+                dateAsArray = dateAsText.toCharArray();
+
+            } while (!(dateAsArray[2] == '.' && dateAsArray[5] == '.' && dateAsArray.length == 10));
+
+            String day = dateAsText.substring(0,2);
+            String month = dateAsText.substring(3,5);
+            String year = dateAsText.substring(6);
+            int dayInt = Integer.parseInt(day);
+            int monthInt = Integer.parseInt(month);
+            int yearInt = Integer.parseInt(year);
+
+            int dateSum = dayInt+monthInt+yearInt;
+            System.out.println("Suma wszystkich liczb podanej daty wynosi: "+dateSum);
+        } catch (Exception e){
+            System.out.println("Cos poszło nie tak.");
+        }
+    }
+
+    public static void task9()
+    {
+        System.out.println("Kompresja RLE");
+        String text = input.nextLine();
+        char[] textAsArray = text.toCharArray();
+        String textBuilder = "";
+
+        for (int i = 0; i < textAsArray.length;i++)
+        {
+            if (i==0 || textAsArray[i]!=textAsArray[i-1])
+            {
+                char temp = textAsArray[i];
+                int temp_no = 1;
+                for (int j = i + 1; j < textAsArray.length; j++)
+                {
+                    if (temp == textAsArray[j])
+                    {
+                        temp_no++;
+                    }
+                }
+                textBuilder += temp;
+                textBuilder += temp_no;
+            }
+        }
+        System.out.println(textBuilder);
+    }
+
+    public static void task10()
+    {
+        System.out.println("Dekompresja RLE (powtórzenia od 1 do 9)");
+        String text = input.nextLine();
+        char[] textAsArray = text.toCharArray();
+        String textBuilder = "";
+        for (int i = 1; i < textAsArray.length; i++)
+        {
+            if (i%2 == 1)
+            {
+                for (int j = 0; j < Character.getNumericValue(textAsArray[i]); j++)
+                {
+                    textBuilder+=textAsArray[i-1];
+                }
+            }
+        }
+        System.out.println("Tekst po dekompresji RLE: " + textBuilder);
+    }
+
+    public static void task11()
+    {
+        System.out.println("10-elementowa talica liczb całkowitych od 10 do 1.");
+        int[] tab10 = new int[10];
+
+        for (int i = 10; i > 0; i--)
+        {
+            int temp = 10-i;
+            tab10[temp] = i;
+        }
+        for (int item: tab10)
+            System.out.print(item);
+        System.out.println();
+    }
+
+    public static char[] task12()
+    {
+        System.out.println("5-elementowa talica znaków wprowadzonych przez użytkowanika.");
+
+        char[] tab5 = new char[5];
+        int i = 0;
+        do
+        {
+            System.out.println("Wprowadź znak do konsoli: ");
+            tab5[i++] = input.next().charAt(0);
+        } while (i < 5);
+        System.out.println(tab5);
+        return tab5;
+    }
+
+    public static void task13()
+    {
+        System.out.println("Wyswietlenie 5-elementowej tablicy wprowadzonych znakow w odwrotnej kolejnosci.");
+        char[] tab5 = task12();
+        System.out.println("Tablica w kolejnosci odwrotnej: ");
+        for(int i=5 ; i>0 ; i--)
+        {
+            System.out.print(tab5[i - 1]);
+        }
+        System.out.println();
+    }
+
+    public static void task14()
+    {
+        System.out.println("Wyswietlenie tylko komórek o indeksach parzystych 5-elementowej tablicy wprowadzonych znakow.");
+        char[] tab5 = task12();
+        System.out.println("Elementy o indeksach parzystych: ");
+        for(int i=0 ; i<5 ; i++)
+        {
+            if (i == 0 || i%2 == 0)
+            {
+                System.out.print(tab5[i]);
+            }
+        }
+        System.out.println();
+    }
+
+    public static void task15()
+    {
+        System.out.println("Zamiana miejscami dwóch sąsiednich komórek 5-elementowej tablicy wprowadzonych znakow.");
+        char[] tab5 = task12();
+        List<String> tabEven = new ArrayList<>();
+        List<String> tabOdd = new ArrayList<>();
+        System.out.println("Elementy o zmienionych miejscach: ");
+        for(int i=0; i<tab5.length; i++)
+        {
+            if (i%2==0)
+                tabEven.add(String.valueOf(tab5[i]));
+            else
+                tabOdd.add(String.valueOf(tab5[i]));
+        }
+
+        List<String> newList = new ArrayList<>();
+        for (int i = 0; i<2; i++)
+        {
+            newList.add(String.valueOf(tabOdd.get(i)));
+            newList.add(String.valueOf(tabEven.get(i)));
+        }
+        newList.add(String.valueOf(tabEven.get(2)));
+        System.out.println(newList);
+
+        System.out.println("Wyswietlanie znaków w kolejnosci rosnacej.");
+        Arrays.sort(tab5);
+        System.out.println("Tablica znaków w rosnącej kolejnosci ma postać: ");
+
+        for(char item: tab5)
+            System.out.print(item);
+
+        System.out.println();
+    }
+
+    public static void task16()
+    {
+        System.out.println("Tworzenie tablicy 10x10 wypełnionej kołami w komórkach, których indeksy są nieparzyste.");
+        String[][] tab = new String[10][10];
+        for (int i=0; i<10; i++)
+        {
+            for (int j=0 ; j<10; j++)
+            {
+                if (i%2==0 && j%2==0)
+                {
+                    tab[i][j] = "\uD83D\uDFE8";
+                }
+                else
+                {
+                    tab[i][j] = "⚪\uFE0F";
+                }
+            }
+        }
+        for (int i=0; i<10; i++)
+        {
+            for (int j=0; j<10; j++)
+            {
+                System.out.print(tab[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void task17()
+    {
+        System.out.println("Dla wprowadzonego rozmiaru n, tworzenie tablicy kwadratowej.");
+        System.out.println("Wprowadź wartosc liczbowa n: ");
+        int n = input.nextInt();
+        String[][] tab = new String[n][n];
+        for (int i=0; i<n; i++)
+        {
+            for (int j=0 ; j<n; j++)
+            {
+                if (j<=i)
+                    tab[i][j] = "\uD83C\uDCCF";
+                else
+                    tab[i][j] = "🟥";
+            }
+        }
+
+        for (int i=0; i<n; i++)
+        {
+            for (int j=0; j<n; j++)
+            {
+                System.out.print(tab[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void task18()
+    {
+        System.out.println("Dla wprowadzonego rozmiaru n, tworzenie tablicy kwadratowej.");
+        System.out.println("Wprowadź wartosc liczbowa n: ");
+        int n = input.nextInt();
+        String[][] tab = new String[n][n];
+        for (int i=0; i<n; i++)
+        {
+            for (int j=0 ; j<n; j++)
+            {
+                if (j==i)
+                    tab[i][j] = "\uD83D\uDFE1";
+                else
+                    tab[i][j] = "\uD83D\uDD35";
+            }
+        }
+
+        for (int i=0; i<n; i++)
+        {
+            for (int j=0; j<n; j++)
+            {
+                System.out.print(tab[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void task19()
+    {
+        System.out.println("Tworzenie tablicy 10x10 wypełnioną różnymi rybami w przypadkowych komórkach.");
+        String[][] tab = new String[10][10];
+        for (int i=0; i<10; i++)
+        {
+            for (int j=0 ; j<10; j++)
+            {
+                tab[i][j] = "\uD83D\uDC1F";
+            }
+        }
+
+        int counter = 0;
+
+        while (counter < 100)
+        {
+            int x = rnt.nextInt(10);
+            int y = rnt.nextInt(10);
+            tab[x][y] = "\uD83D\uDC20";
+            counter++;
+        }
+
+        for (int i=0; i<10; i++)
+        {
+            for (int j=0; j<10; j++)
+            {
+                System.out.print(tab[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void task20()
+    {
+        System.out.println("Plansza gry 5x5");
+        System.out.println("Przesun potwora za pomocą: 1 - w lewo, 2 - w prawo, 3 - w dół, 4 - w górę.");
+        String[][] tab = new String[5][5];
+        for (int i=0; i<5; i++)
+        {
+            for (int j=0 ; j<5; j++)
+            {
+                if(i==0 && j ==0)
+                    tab[i][j] = "\uD83D\uDC30";
+                else
+                    tab[i][j] = "⬛\uFE0F";
+            }
+        }
+
+        int move;
+        int row = 0, col = 0;
+
+        do
+        {
+            System.out.println("W którą stronę przesunąc? 1 lewo / 2 prawo / 3 dół / 4 góra // spoza zakresu - wyjscie");
+            move = input.nextInt();
+
+            for (int i=0; i<5; i++) {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (tab[i][j] == "\uD83D\uDC30")
+                    {
+                        row = i;
+                        col = j;
+                        break;
+
+                    }
+                }
+            }
+
+            tab[row][col] = "⬛\uFE0F";
+            if (move==1)
+            {
+                if (col >0)
+                    col--;
+            }
+            else if (move==2)
+            {
+                if (col<4)
+                    col++;
+            }
+            else if (move==3)
+            {
+                if (row<4)
+                    row++;
+            }
+            else if (move==4)
+            {
+                if (row>0)
+                    row--;
+            }
+            tab[row][col] = "\uD83D\uDC30";
+
+            if (move > 0 && move < 5) {
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        System.out.print(tab[i][j]);
+                    }
+                    System.out.println();
+                }
+            }
+
+        } while (move < 5 && move > 0);
+    }
+
+    public static void task21()
+    {
+        System.out.println("Złap studenta.");
+        int n = rnt.nextInt(10,30);
+        int s = n/2;
+        int game_over = 0;
+
+        System.out.println("Przesun profesora za pomocą: 1 - w lewo, 2 - w prawo, 3 - w dół, 4 - w górę.");
+        String[][] tab = new String[n][n];
+        for (int i=0; i<n; i++)
+        {
+            for (int j=0 ; j<n; j++)
+            {
+                if(i==0 && j ==0)
+                    tab[i][j] = "\uD83E\uDDD9\u200D♂\uFE0F";
+                else
+                    tab[i][j] = "⬜\uFE0F";
+            }
+        }
+
+        int counter = 0;
+        while (counter <= s)
+        {
+            int x = rnt.nextInt(n);
+            int y = rnt.nextInt(n);
+            tab[x][y] = "\uD83D\uDE2C";
+            counter++;
+        }
+
+        int move;
+        int row = 0, col = 0;
+
+        do
+        {
+            int stud_no = 0;
+            for (int i=0; i<n; i++) {
+                for (int j = 0; j < n; j++)
+                {
+                    if (tab[i][j] == "😬")
+                    {
+                        stud_no++;
+                    }
+                }
+            }
+            if (stud_no>1)
+                System.out.println("Po auli biega jeszcze "+stud_no+" studentów z indeksami.");
+            else if (stud_no == 1)
+                System.out.println("Po auli biega już tylko "+stud_no+" student z indeksem.");
+            else if (stud_no==0) {
+                System.out.println("UDANA SESJA "+"\uD83D\uDC4C\uD83C\uDFFD");
+                break;
+            }
+
+            System.out.println("W którą stronę przesunąć profesora? 1 lewo / 2 prawo / 3 dół / 4 góra // spoza zakresu - wyjscie");
+            move = input.nextInt();
+            if (move>0 && move <5)
+            {
+                game_over = 0;
+            } else{
+                game_over = 1;
+                System.out.println("...i po sesji... kilku ocalało...");
+                break;
+            }
+
+            for (int i=0; i<n; i++) {
+                for (int j = 0; j < n; j++)
+                {
+                    if (tab[i][j] == "\uD83E\uDDD9\u200D♂\uFE0F")
+                    {
+                        row = i;
+                        col = j;
+                        break;
+
+                    }
+                }
+            }
+
+            tab[row][col] = "⬜\uFE0F";
+            if (move==1)
+            {
+                if (col >0)
+                    col--;
+            }
+            else if (move==2)
+            {
+                if (col<n-1)
+                    col++;
+            }
+            else if (move==3)
+            {
+                if (row<n-1)
+                    row++;
+            }
+            else if (move==4)
+            {
+                if (row>0)
+                    row--;
+            }
+            tab[row][col] = "\uD83E\uDDD9\u200D♂\uFE0F";
+
+            if (game_over == 0) {
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        System.out.print(tab[i][j]);
+                    }
+                    System.out.println();
+                }
+            }
+
+        } while (game_over == 0);
+    }
+}
+
+```
